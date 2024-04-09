@@ -30,33 +30,26 @@ function activate_the_villian() {
 // attacks according to the players state, or not if disabled
 function glados_attacking_abilities_update() {
     if (GLaDOS_state) { // GLaDOS is active
-        if (is_hiding) { // only the rifle can be used
-            // EntFire("glados_shooting_permission", "FireUser3", null, 0, null); // enables the rifle
-                EntFire("shooting_logic", "Enable", null, 0, null)
-                EntFire("shooting_logic_timer", "Enable", null, 0, null)
-                EntFire("turret_holder_counter", "SetValue", 5, 0, null)
-            // EntFire("glados_shooting_permission", "FireUser2", null, 0, null); // disables bombs
-                EntFire("bombs_shooting_logic", "Disable", null, 0, null)
-                EntFire("viewoftank_trigger", "Disable", null, 0, null)
-                EntFire("bombs_reload_relay", "Disable", null, 0, null)
-        } else { // Bombs are used
-            // EntFire("glados_shooting_permission", "FireUser1", null, 0, null); // enables bombs
-                EntFire("bombs_shooting_logic", "Enable", null, 0, null)
-                EntFire("viewoftank_trigger", "Enable", null, 0, null)
-                EntFire("bombs_reload_relay", "Enable", null, 0, null)
-                EntFire("SMG_alt_counter", "SetValue", 3, 0, null)
-            // EntFire("glados_shooting_permission", "FireUser4", null, 0, null); // disables the rifle
-                EntFire("shooting_logic", "Disable", null, 0, null)
-                EntFire("shooting_logic_timer", "Disable", null, 0, null)
-        }
+        local mode_rifle = is_hiding ? "Enable" : "Disable"
+        local mode_bombs = is_hiding ? "Disable" : "Enable"
+        // bombs
+        EntFire("bombs_shooting_logic", mode_bombs, null, 0, null)
+        EntFire("viewoftank_trigger", mode_bombs, null, 0, null)
+        EntFire("bombs_reload_relay", mode_bombs, null, 0, null)
+        if (!is_hiding) {EntFire("SMG_alt_counter", "SetValue", 3, 0, null)}
+        // rifles
+        EntFire("shooting_logic", mode_rifle, null, 0, null)
+        EntFire("shooting_logic_timer", mode_rifle, null, 0, null)
+        if (is_hiding) {EntFire("turret_holder_counter", "SetValue", 5, 0, null)}
     } else { // GLaDOS is inactive
-        // EntFire("glados_shooting_permission", "FireUser2", null, 0, null); // disable both
-            EntFire("bombs_shooting_logic", "Disable", null, 0, null)
-            EntFire("viewoftank_trigger", "Disable", null, 0, null)
-            EntFire("bombs_reload_relay", "Disable", null, 0, null)
-        // EntFire("glados_shooting_permission", "FireUser4", null, 0, null); //
-            EntFire("shooting_logic", "Disable", null, 0, null)
-            EntFire("shooting_logic_timer", "Disable", null, 0, null)
+        // disable both
+        EntFire("bombs_shooting_logic", "Disable", null, 0, null)
+        EntFire("viewoftank_trigger", "Disable", null, 0, null)
+        EntFire("bombs_reload_relay", "Disable", null, 0, null)
+
+        EntFire("shooting_logic", "Disable", null, 0, null)
+        EntFire("shooting_logic_timer", "Disable", null, 0, null)
+        
     }
 }
 
