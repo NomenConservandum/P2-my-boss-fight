@@ -43,13 +43,11 @@ function glados_attacking_abilities_update() {
         if (is_hiding) {EntFire("turret_holder_counter", "SetValue", 5, 0, null)}
     } else { // GLaDOS is inactive
         // disable both
-        EntFire("bombs_shooting_logic", "Disable", null, 0, null)
-        EntFire("viewoftank_trigger", "Disable", null, 0, null)
-        EntFire("bombs_reload_relay", "Disable", null, 0, null)
-
-        EntFire("shooting_logic", "Disable", null, 0, null)
-        EntFire("shooting_logic_timer", "Disable", null, 0, null)
-        
+        local arr = ["bombs_shooting_logic", "viewoftank_trigger", "bombs_reload_relay", "shooting_logic", "shooting_logic_timer"]
+        for (local k = 0; k < 5; ++k) {
+            EntFire(arr[k], "Disable", null, 0, null)
+            printl("Disabling " + arr[k] + "!")
+        }
     }
 }
 
