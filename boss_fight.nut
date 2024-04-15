@@ -42,12 +42,16 @@ shoot_bombs() { // analog of bombs_shooting_logic entity
     EntFire("bomb_shoot_sound", "PlaySound", null, 1, null) // to be replace with a playsound command
     
     EntFire("bombs_shooting_light", "TurnOn", null, 1, null)
-    // to be replaced with a cycle
-    EntFire("bombs_shooting_light", "brightness", "5", 1, null)
-    EntFire("bombs_shooting_light", "brightness", "4", 1.10, null)
-    EntFire("bombs_shooting_light", "brightness", "3", 1.20, null)
-    EntFire("bombs_shooting_light", "brightness", "2", 1.30, null)
-    EntFire("bombs_shooting_light", "brightness", "1", 1.40, null)
+    // 
+    for (local k = 5; k > 0; --k) {
+        EntFire("bombs_shooting_light", "brightness", "" + k, 1.5 - 0.1*k, null)
+        printl("The lights brightness now is " + "" + k + "!")
+    }
+    // EntFire("bombs_shooting_light", "brightness", "5", 1, null)
+    // EntFire("bombs_shooting_light", "brightness", "4", 1.10, null)
+    // EntFire("bombs_shooting_light", "brightness", "3", 1.20, null)
+    // EntFire("bombs_shooting_light", "brightness", "2", 1.30, null)
+    // EntFire("bombs_shooting_light", "brightness", "1", 1.40, null)
     // end of the cycle
     EntFire("bombs_shooting_light", "TurnOff", null, 1.50, null)
 
