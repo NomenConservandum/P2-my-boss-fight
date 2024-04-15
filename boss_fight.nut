@@ -5,6 +5,7 @@ printl("script is working\n");
 GLaDOS_health <- 4; // GLaDOS' health
 GLaDOS_state <- false // is GLaDOS active?
 is_hiding <- false; // is player hiding?
+mode <- "None"; // Shoot bombs or bullets, depence on is_hiding.
 
 //
 // Triggers' Logic
@@ -27,6 +28,34 @@ function activate_the_villian() {
     GLaDOS_state = true;
 }
 
+// to shoot bombs
+shoot_bombs() { // analog of bombs_shooting_logic entity
+    if (mode != "Bombs") return; // if it's not the bombs mode, we don't use it.
+    if (!GLaDOS_state) return; // if GLaDOS is inactive, we can't use it.
+    EntFire("bombs_beep", "PlaySound", null, 0, null)
+    EntFire("tank_*", "Deactivate", null, 0, null)
+    EntFire("MC_brush_normal", "Color", "0 255 0", 0, null)
+    EntFire("bombs_visual_logic", "Trigger", null, 0, null)
+    EntFire("tank_*", "ClearTargetEntity", null, 0, null)
+    EntFire("SMG_alt_counter", "Subtract", "1", 0.01, null) // to be replaced with a global variable
+    EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
+    EntFire("bomb_shoot_sound", "PlaySound", null, 1, null) // to be replace with a playsound command
+    
+    EntFire("bombs_shooting_light", "TurnOn", null, 1, null)
+    // to be replaced with a cycle
+    EntFire("bombs_shooting_light", "brightness", "5", 1, null)
+    EntFire("bombs_shooting_light", "brightness", "4", 1.10, null)
+    EntFire("bombs_shooting_light", "brightness", "3", 1.20, null)
+    EntFire("bombs_shooting_light", "brightness", "2", 1.30, null)
+    EntFire("bombs_shooting_light", "brightness", "1", 1.40, null)
+    // end of the cycle
+    EntFire("bombs_shooting_light", "TurnOff", null, 1.50, null)
+
+    EntFire("tank_*", "Activate", null, 1.50, null)
+    EntFire("tank_*", "SetTargetEntity", "player_target", 1.51, null)
+}
+
+
 // attacks according to the players state, or not if disabled
 function glados_attacking_abilities_update() {
     if (GLaDOS_state) { // GLaDOS is active
@@ -34,6 +63,7 @@ function glados_attacking_abilities_update() {
         local mode_bombs = is_hiding ? "Disable" : "Enable"
         // bombs
         EntFire("bombs_shooting_logic", mode_bombs, null, 0, null)
+        
         EntFire("viewoftank_trigger", mode_bombs, null, 0, null)
         EntFire("bombs_reload_relay", mode_bombs, null, 0, null)
         if (!is_hiding) {EntFire("SMG_alt_counter", "SetValue", 3, 0, null)}
@@ -42,7 +72,7 @@ function glados_attacking_abilities_update() {
         EntFire("shooting_logic_timer", mode_rifle, null, 0, null)
         if (is_hiding) {EntFire("turret_holder_counter", "SetValue", 5, 0, null)}
     } else { // GLaDOS is inactive
-        // disable both
+        // disable the entities
         local arr = ["bombs_shooting_logic", "viewoftank_trigger", "bombs_reload_relay", "shooting_logic", "shooting_logic_timer"]
         for (local k = 0; k < 5; ++k) {
             EntFire(arr[k], "Disable", null, 0, null)
@@ -53,7 +83,8 @@ function glados_attacking_abilities_update() {
 
 function glados_wakes_up() {
     printl("GLaDOS is waking up!");
-    // can make an array of animation names where health is used as an index, as lower the healthbar, the more angry and exhausted are the animations
+    // can make an array of animation names where health is used as an index, as
+    // lower the healthbar, the more angry and exhausted are the animations
     EntFire("GLaDOS_model", "SetAnimation", "glados_its_been_fun", 0, null);
     EntFire("tank_*", "Activate", null, 0, null);
     if (GLaDOS_health % 2 == 1) {
