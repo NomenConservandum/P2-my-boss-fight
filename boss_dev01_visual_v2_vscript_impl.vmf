@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "9672"
-	"mapversion" "2297"
+	"mapversion" "2299"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -182,7 +182,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "2297"
+	"mapversion" "2299"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -25959,7 +25959,8 @@ entity
 	"wait" "3"
 	connections
 	{
-		"OnTrigger" "bombs_shooting_relayFireUser10-1"
+		"OnUser1" "bombs_shooting_relayFireUser10-1"
+		"OnTrigger" "game_n_scriptRunScriptCodeshoot_bombs()0-1"
 	}
 	solid
 	{

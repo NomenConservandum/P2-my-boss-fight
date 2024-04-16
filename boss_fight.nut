@@ -2,10 +2,11 @@ printl("script is working\n");
 //
 // Global Variables
 //
-GLaDOS_health <- 4; // GLaDOS' health
+
+GLaDOS_health <- 4 // GLaDOS' health
 GLaDOS_state <- false // is GLaDOS active?
-is_hiding <- false; // is player hiding?
-mode <- "None"; // Shoot bombs or bullets, depence on is_hiding.
+is_hiding <- false // is player hiding?
+bombs_ammount <- 0
 
 //
 // Triggers' Logic
@@ -28,38 +29,6 @@ function activate_the_villian() {
     GLaDOS_state = true;
 }
 
-// to shoot bombs
-shoot_bombs() { // analog of bombs_shooting_logic entity
-    if (mode != "Bombs") return; // if it's not the bombs mode, we don't use it.
-    if (!GLaDOS_state) return; // if GLaDOS is inactive, we can't use it.
-    EntFire("bombs_beep", "PlaySound", null, 0, null)
-    EntFire("tank_*", "Deactivate", null, 0, null)
-    EntFire("MC_brush_normal", "Color", "0 255 0", 0, null)
-    EntFire("bombs_visual_logic", "Trigger", null, 0, null)
-    EntFire("tank_*", "ClearTargetEntity", null, 0, null)
-    EntFire("SMG_alt_counter", "Subtract", "1", 0.01, null) // to be replaced with a global variable
-    EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
-    EntFire("bomb_shoot_sound", "PlaySound", null, 1, null) // to be replace with a playsound command
-    
-    EntFire("bombs_shooting_light", "TurnOn", null, 1, null)
-    // 
-    for (local k = 5; k > 0; --k) {
-        EntFire("bombs_shooting_light", "brightness", "" + k, 1.5 - 0.1*k, null)
-        printl("The lights brightness now is " + "" + k + "!")
-    }
-    // EntFire("bombs_shooting_light", "brightness", "5", 1, null)
-    // EntFire("bombs_shooting_light", "brightness", "4", 1.10, null)
-    // EntFire("bombs_shooting_light", "brightness", "3", 1.20, null)
-    // EntFire("bombs_shooting_light", "brightness", "2", 1.30, null)
-    // EntFire("bombs_shooting_light", "brightness", "1", 1.40, null)
-    // end of the cycle
-    EntFire("bombs_shooting_light", "TurnOff", null, 1.50, null)
-
-    EntFire("tank_*", "Activate", null, 1.50, null)
-    EntFire("tank_*", "SetTargetEntity", "player_target", 1.51, null)
-}
-
-
 // attacks according to the players state, or not if disabled
 function glados_attacking_abilities_update() {
     if (GLaDOS_state) { // GLaDOS is active
@@ -70,7 +39,10 @@ function glados_attacking_abilities_update() {
         
         EntFire("viewoftank_trigger", mode_bombs, null, 0, null)
         EntFire("bombs_reload_relay", mode_bombs, null, 0, null)
-        if (!is_hiding) {EntFire("SMG_alt_counter", "SetValue", 3, 0, null)}
+        if (!is_hiding) {
+            EntFire("SMG_alt_counter", "SetValue", 3, 0, null)
+            bombs_ammount = 3
+            }
         // rifles
         EntFire("shooting_logic", mode_rifle, null, 0, null)
         EntFire("shooting_logic_timer", mode_rifle, null, 0, null)
@@ -83,6 +55,46 @@ function glados_attacking_abilities_update() {
             printl("Disabling " + arr[k] + "!")
         }
     }
+}
+
+function SMG_alt_case() {
+    EntFire("num2_" + ("" + (bombs_ammount + 1)), "Disable", null, 0, null)
+    EntFire("num2_" + ("" + bombs_ammount), "Enable", null, 0.01, null)
+    if (bombs_ammount == 0) {
+        EntFire("num2_0", "Disable", null, 1, null) // we have this instead!
+        EntFire("MC_brush_normal", "Color", "255 0 0", 1, null)
+        EntFire("num2_*", "Disable", null, 1, null) // why is it here?
+        EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replace with a playsound command
+        glados_attacking_abilities_update()
+    }
+}
+
+// to shoot bombs
+function shoot_bombs() { // analog of bombs_shooting_logic entity
+    printl("Well, at least it is called!")
+    if (is_hiding) return // if it's not the bombs mode, we don't use it.
+    if (!GLaDOS_state) return // if GLaDOS is inactive, we can't use it.
+    EntFire("bombs_beep", "PlaySound", null, 0, null)
+    EntFire("tank_*", "Deactivate", null, 0, null)
+    EntFire("MC_brush_normal", "Color", "0 255 0", 0, null)
+    EntFire("bombs_visual_logic", "Trigger", null, 0, null)
+    EntFire("tank_*", "ClearTargetEntity", null, 0, null)
+
+    --bombs_ammount
+    SMG_alt_case()
+    EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
+    EntFire("bomb_shoot_sound", "PlaySound", null, 1, null) // to be replace with a playsound command
+    
+    EntFire("bombs_shooting_light", "TurnOn", null, 1, null)
+
+    for (local k = 5; k > 0; --k) {
+        EntFire("bombs_shooting_light", "brightness", "" + k, 1.5 - 0.1*k, null)
+        printl("The lights brightness now is " + ("" + k) + "!")
+    }
+    EntFire("bombs_shooting_light", "TurnOff", null, 1.50, null)
+
+    EntFire("tank_*", "Activate", null, 1.50, null)
+    EntFire("tank_*", "SetTargetEntity", "player_target", 1.51, null)
 }
 
 function glados_wakes_up() {
