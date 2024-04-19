@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "9672"
-	"mapversion" "2299"
+	"mapversion" "2301"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -182,7 +182,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "2299"
+	"mapversion" "2301"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -36658,8 +36658,6 @@ entity
 	"targetname" "trigger_to_shoot_here"
 	connections
 	{
-		"OnTrigger" "glados_shooting_permissionFireUser40-1"
-		"OnTrigger" "glados_shooting_permissionFireUser20-1"
 		"OnTrigger" "TRAPshooting_logic_timerEnable0-1"
 		"OnTrigger" "glass_window_break_lightTurnOff0-1"
 		"OnTrigger" "tank_ySetTargetEntityNameglass_window_break_target0-1"
