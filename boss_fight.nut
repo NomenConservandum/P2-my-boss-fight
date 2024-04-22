@@ -90,7 +90,13 @@ function shoot_bombs() { // analog of bombs_shooting_logic entity
 //to shoot from the rifle
 function shoot_rifle() {
     if (!is_hiding || !GLaDOS_state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
+    EntFire("shooting_light", "TurnOn", null, 0, null)
+    EntFire("shooting_light", "TurnOff", null, 0.50, null)
 
+    EntFire("smg_turret", "FireBullet", "player_target", 0.00, null)
+    EntFire("smg_turret", "Disable", null, 0.00, null)
+    
+    EntFire("num2_*", "Disable", null, 0.01, null)
 }
 
 function glados_wakes_up() {
