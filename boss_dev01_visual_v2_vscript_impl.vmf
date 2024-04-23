@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "9672"
-	"mapversion" "2301"
+	"mapversion" "2303"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -182,7 +182,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "2301"
+	"mapversion" "2303"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -9502,7 +9502,6 @@ entity
 	{
 		"OnMapSpawn" "commandCommandgive_portalgun 0-1"
 		"OnMapSpawn" "commandCommandupgrade_portalgun0.01-1"
-		"OnMapSpawn" "game_n_scriptRunScriptCodeglados_attacking_abilities_update()1.1-1"
 		"OnMapSpawn" "game_n_scriptRunScriptCodeactivate_the_villian()1-1"
 	}
 	"origin" "420.408 118.062 8"
@@ -36951,13 +36950,13 @@ entity
 		"OnMapSpawn" "commandCommandhud_saytext_time 00-1"
 		"OnMapSpawn" "shooting_lightTurnOff0-1"
 		"OnMapSpawn" "bombs_shooting_lightTurnOff0-1"
-		"OnMapSpawn" "player_detectorSetTargetEntityplayer_target0-1"
-		"OnMapSpawn" "tank_*SetTargetEntityplayer_target0-1"
 		"OnMapSpawn" "SMG_alignmentEnable0-1"
 		"OnMapSpawn" "smg_turretDisable0-1"
 		"OnMapSpawn" "smg_turretSetParentturret_parent0.5-1"
 		"OnMapSpawn" "robot_makeramp_02_brushSetParentAttachmentMaintainOffsetpanel_attach0-1"
 		"OnMapSpawn" "port_surf_brush2SetParentAttachmentMaintainOffsetpanel_top0-1"
+		"OnMapSpawn" "tank_*SetTargetEntityplayer_target0-1"
+		"OnMapSpawn" "player_detectorSetTargetEntityplayer_target0-1"
 	}
 	"origin" "0 0 0"
 	editor
