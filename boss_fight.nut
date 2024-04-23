@@ -15,13 +15,14 @@ ammo <- 0
 function istriggered() {
 	is_hiding = true
     ammo = 0
-    // printl("Where are you!?") 
+    shoot_rifle()
+    // printl("Where are you!?")
 }
 
 function is_not_triggered() {
     is_hiding = false
     ammo = 0
-    // printl("Here you are!") 
+    // printl("Here you are!")
 }
 
 //
@@ -30,12 +31,6 @@ function is_not_triggered() {
 
 function activate_the_villian() {
     GLaDOS_state = true 
-}
-
-// Obsolete. To be cut.
-function glados_attacking_abilities_update() {
-    shoot_bombs()
-    shoot_rifle()
 }
 
 // to shoot bombs

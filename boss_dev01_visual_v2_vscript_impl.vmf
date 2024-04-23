@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "9672"
-	"mapversion" "2303"
+	"mapversion" "2305"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -182,7 +182,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "2303"
+	"mapversion" "2305"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -26268,9 +26268,7 @@ entity
 	"wait" "1"
 	connections
 	{
-		"OnStartTouchAll" "game_n_scriptRunScriptCodeglados_attacking_abilities_update()0.01-1"
 		"OnStartTouchAll" "game_n_scriptRunScriptCodeistriggered()0-1"
-		"OnEndTouchAll" "game_n_scriptRunScriptCodeglados_attacking_abilities_update()0.01-1"
 		"OnEndTouchAll" "game_n_scriptRunScriptCodeis_not_triggered()0-1"
 	}
 	solid
@@ -36846,9 +36844,7 @@ entity
 	"wait" "1"
 	connections
 	{
-		"OnStartTouchAll" "game_n_scriptRunScriptCodeglados_attacking_abilities_update()0.01-1"
 		"OnStartTouchAll" "game_n_scriptRunScriptCodeistriggered()0-1"
-		"OnEndTouchAll" "game_n_scriptRunScriptCodeglados_attacking_abilities_update()0.01-1"
 		"OnEndTouchAll" "game_n_scriptRunScriptCodeis_not_triggered()0-1"
 	}
 	solid
@@ -56978,8 +56974,6 @@ entity
 	{
 		"OnStartTouchAll" "game_n_scriptRunScriptCodeistriggered()0-1"
 		"OnEndTouchAll" "game_n_scriptRunScriptCodeis_not_triggered()0-1"
-		"OnStartTouchAll" "game_n_scriptRunScriptCodeglados_attacking_abilities_update()0.01-1"
-		"OnEndTouchAll" "game_n_scriptRunScriptCodeglados_attacking_abilities_update()0.01-1"
 	}
 	solid
 	{
