@@ -7,18 +7,20 @@ printl("script is working\n")
 GLaDOS_health <- 4 // GLaDOS' health
 GLaDOS_state <- false // is GLaDOS active?
 is_hiding <- false // is player hiding?
-bombs_ammount <- 0
+ammo <- 0
 
 //
 // Triggers' Logic
 //
 function istriggered() {
 	is_hiding = true
+    ammo = 0
     // printl("Where are you!?") 
 }
 
 function is_not_triggered() {
-	is_hiding = false 
+    is_hiding = false
+    ammo = 0
     // printl("Here you are!") 
 }
 
@@ -30,49 +32,32 @@ function activate_the_villian() {
     GLaDOS_state = true 
 }
 
-// attacks according to the players state, or not if disabled
+// Obsolete. To be cut.
 function glados_attacking_abilities_update() {
-    if (GLaDOS_state) { // GLaDOS is active
-        EntFire("num2_*", "Disable", null, 0, null)
-        local mode_rifle = is_hiding ? "Enable" : "Disable"
-        
-        // rifles
-        EntFire("shooting_logic", mode_rifle, null, 0, null)
-        EntFire("shooting_logic_timer", mode_rifle, null, 0, null)
-        if (is_hiding) {EntFire("turret_holder_counter", "SetValue", 5, 0, null)} // to be replaced with a global variable
-    } else { // GLaDOS is inactive
-        // disable the entities
-        local arr = ["shooting_logic", "shooting_logic_timer"]
-        for (local k = 0; k < 2; ++k) {
-            EntFire(arr[k], "Disable", null, 0, null)
-            // printl("Disabling " + arr[k] + "!")
-        }
-    }
-    // after I'm done with implementing the logic, this function will just call bombs and rifle attacks.
-}
-
-function bombs_ammo_tracker() {
-    EntFire("num2_*", "Disable", null, 0, null)
-    EntFire("num2_" + ("" + bombs_ammount), "Enable", null, 0.01, null)
-    if (bombs_ammount == 0 && GLaDOS_state && !is_hiding) { // reloading
-        // EntFire("MC_brush_normal", "Color", "255 0 0", 1, null)
-        EntFire("num2_*", "Disable", null, 0.01, null) // why is it here?
-        EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
-        EntFire("num2_3", "Enable", null, 1.01, null)
-        bombs_ammount = 3
-    }
+    shoot_bombs()
+    shoot_rifle()
 }
 
 // to shoot bombs
 function shoot_bombs() { // analog of bombs_shooting_logic entity
+    printl("Bombs are called")
     if (is_hiding || !GLaDOS_state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
+    if (ammo == 0) {
+        printl("Reloading")
+        EntFire("num2_*", "Disable", null, 0.00, null)
+        EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
+        ammo = 3
+        EntFire("num2_3", "Enable", null, 0.00, null)
+    }
+    
     EntFire("bombs_beep", "PlaySound", null, 0, null) // to be replaced with a playsound command
     // shooting logic
     EntFire("tank_*", "Deactivate", null, 0, null)
     EntFire("MC_brush_normal", "Color", "0 255 0", 0, null)
     EntFire("bombs_visual_logic", "Trigger", null, 0, null)
-    --bombs_ammount
-    bombs_ammo_tracker()
+    --ammo
+    EntFire("num2_*", "Disable", null, 0.9, null)
+    EntFire("num2_" + ("" + ammo), "Enable", null, 0.91, null)
 
     // visuals
     EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
@@ -89,8 +74,30 @@ function shoot_bombs() { // analog of bombs_shooting_logic entity
 
 //to shoot from the rifle
 function shoot_rifle() {
+    printl("Bullets are called")
     if (!is_hiding || !GLaDOS_state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
+    if (ammo == 0) {
+        printl("Reloading")
+        EntFire("num2_*", "Disable", null, 0.00, null)
+        EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
+        ammo = 5
+        EntFire("num2_5", "Enable", null, 0.01, null)
+    }
 
+    --ammo
+    EntFire("num2_*", "Disable", null, 0.9, null)
+    EntFire("num2_" + ("" + ammo), "Enable", null, 0.91, null)
+    
+    EntFire("shooting_light", "TurnOn", null, 1, null)
+    EntFire("shooting_light", "TurnOff", null, 1.05, null)
+
+    EntFire("smg_turret", "FireBullet", "player_target", 1, null)
+    EntFire("smg_turret", "Disable", null, 1.01, null)
+    
+    // EntFire("num2_*", "Disable", null, 0.00, null)
+    EntFire("MC_brush_normal", "Color", "0 255 0", 1, null)
+
+    EntFire("game_n_script", "RunScriptCode", "shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
 }
 
 function glados_wakes_up() {
@@ -140,5 +147,6 @@ function glados_is_attacked() {
 //
 EntFire("viewoftank_trigger", "Enable", null, 0, null)
 GLaDOS_state = true
-bombs_ammo_tracker()
-EntFire("tank_*", "SetTargetEntity", "!player", 0, null)
+ammo_tracker()
+EntFire("tank_*", "SetTargetEntity", "player_target", 0, null)
+EntFire("player_detector", "SetTargetEntity", "player_target", 0, null)
