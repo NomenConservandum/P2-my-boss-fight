@@ -107,26 +107,26 @@ function glados_wakes_up() {
         EntFire("GLaDOS_model", "SetDefaultAnimation", "glados_idle_agitated", 0, null) 
     }
     GLaDOS_state = true  // GLaDOS' state is now "active"
-    glados_attacking_abilities_update()  // Thus, she can attack now
+    shoot_bombs()  // Thus, she can attack now
+    shoot_rifle()
 }
 
 function glados_is_attacked() {
     printl("GLaDOS is being attacked!!! Is nice.") 
     // plays the animations and sounds (maybe some environmental changes: lighting changes, earthquakes, etc)
-    EntFire("spin_disk_" + GLaDOS_health, "Stop", null, 0, null) 
+    EntFire("spin_disk_" + GLaDOS_health, "Stop", null, 0, null)
     EntFire("spin_disk_1_exp_sound", "PlaySound", null, 0.1, null) // to be replaced with a playsound command
-    EntFire("spark_" + GLaDOS_health, "StartSpark", null, 0, null) 
+    EntFire("spark_" + GLaDOS_health, "StartSpark", null, 0, null)
     EntFire("power_off_01", "PlaySound", null, 0.5, null) // to be replaced with a playsound command
 
     EntFire("GLaDOS_model", "SetAnimation", "sp_sabotage_glados_dropped", 0, null) 
     EntFire("GLaDOS_model", "SetDefaultAnimation", "fgbwheatleytransfer03", 0, null) 
-    EntFire("tank_*", "Deactivate", null, 0, null) 
+    EntFire("tank_*", "Deactivate", null, 0, null)
     EntFire("GLaDOS_damage_beep", "PlaySound", null, 0, null) // to be replaced with a playsound command
     
     GLaDOS_state = false // GLaDOS' state is now "inactive"
-    glados_attacking_abilities_update() // Thus, she cannot attack for now
     --GLaDOS_health // healthbar is lowered
-    printl("GLaDOS' health: " + GLaDOS_health) 
+    printl("GLaDOS' health: " + GLaDOS_health)
     if (GLaDOS_health <= 0) { // checks healthbar
         SendToConsole("say GLaDOS is dead!")
     } else {
