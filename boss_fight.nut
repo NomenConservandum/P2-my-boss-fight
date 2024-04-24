@@ -88,7 +88,11 @@ function shoot_rifle() {
     EntFire("num2_*", "Disable", null, 0.9, null)
     EntFire("num2_" + ("" + ammo), "Enable", null, 0.91, null)
 
-    EntFire("weapon_animation_relay", "Trigger", null, 1, null)
+    EntFire("weapon_wholebodymovementreload", "Open", null, 0, null)
+    EntFire("weapon_aim_sprite", "HideSprite", null, 0, null)
+    EntFire("weapon_barell_door", "Open", null, 0.5, null)
+    EntFire("weapon_wholebodymovementreload", "Close", null, 0.5, null)
+    EntFire("robot_pos_interact", "PlaySound", null, 1, null) // to be replaced with a playsound command
     
     EntFire("shooting_light", "TurnOn", null, 1, null)
     EntFire("shooting_light", "TurnOff", null, 1.05, null)
