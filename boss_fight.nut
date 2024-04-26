@@ -33,9 +33,7 @@ function activate_the_villian() {
 
 // to shoot bombs
 function shoot_bombs() { // analog of bombs_shooting_logic entity
-    if (is_hiding || !GLaDOS_state) { // if it's not the bombs mode or GLaDOS is inactive, we don't use it
-        return
-    }
+    if (is_hiding || !GLaDOS_state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
     if (ammo == 0) {
         ammo = 3
         EntFire("num2_*", "Disable", null, 0.00, null)
@@ -72,9 +70,7 @@ function shoot_bombs() { // analog of bombs_shooting_logic entity
 
 //to shoot from the rifle
 function shoot_rifle() {
-    if (!is_hiding || !GLaDOS_state) { // if it's not the rifle mode or GLaDOS is inactive, we don't use it
-        return
-    }
+    if (!is_hiding || !GLaDOS_state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
     if (ammo == 0) {
         ammo = 5
         EntFire("num2_*", "Disable", null, 0.00, null)
