@@ -1,5 +1,7 @@
 printl("script is working\n") 
 
+IncludeScript("bossfight/bossfight_visuals")
+
 //
 // Global Variables
 //
@@ -36,8 +38,7 @@ function shoot_bombs() { // analog of bombs_shooting_logic entity
     if (is_hiding || !GLaDOS_state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
     if (ammo == 0) {
         ammo = 3
-        EntFire("num2_*", "Disable", null, 0.00, null)
-        EntFire("num2_3", "Enable", null, 0.00, null)
+        monitor_ammo_update(ammo)
         EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
     }
     // shooting logic
@@ -56,8 +57,7 @@ function shoot_bombs() { // analog of bombs_shooting_logic entity
     EntFire("tube_suction_bombs", "PlaySound", null, 0.6, null) // to be replaced with a playsound command
     EntFire("grenade_preview", "DisableDraw", null, 1, null)
     // monitor's visuals
-    EntFire("num2_*", "Disable", null, 0.9, null)
-    EntFire("num2_" + ("" + ammo), "Enable", null, 0.91, null)
+    monitor_ammo_update(ammo)
     EntFire("MC_brush_normal", "Color", "0 255 0", 0, null)
     EntFire("MC_brush_normal", "Color", "255 0 0", 1.5, null)
     // muzzle-light's logic
@@ -73,8 +73,7 @@ function shoot_rifle() {
     if (!is_hiding || !GLaDOS_state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
     if (ammo == 0) {
         ammo = 5
-        EntFire("num2_*", "Disable", null, 0.00, null)
-        EntFire("num2_5", "Enable", null, 0.01, null)
+        monitor_ammo_update(ammo)
         EntFire("MC_brush_normal", "Color", "255 255 255", 1, null)
         EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
     }
@@ -85,8 +84,7 @@ function shoot_rifle() {
     EntFire("game_n_script", "RunScriptCode", "shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
 
     // monitor's visuals
-    EntFire("num2_*", "Disable", null, 0.9, null)
-    EntFire("num2_" + ("" + ammo), "Enable", null, 0.91, null)
+    monitor_ammo_update(ammo)
     EntFire("MC_brush_normal", "Color", "0 255 0", 1, null)
     // rifle's sequence
     EntFire("weapon_wholebodymovementreload", "Open", null, 0, null)
