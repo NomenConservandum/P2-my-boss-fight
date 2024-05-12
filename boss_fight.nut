@@ -51,21 +51,13 @@ function shoot_bombs() { // analog of bombs_shooting_logic entity
     EntFire("bombs_beep", "PlaySound", null, 0, null) // to be replaced with a playsound command
     EntFire("bomb_shoot_sound", "PlaySound", null, 1, null) // to be replaced with a playsound command
     // bomb launcher's sequence
-    EntFire("bombtrain", "TeleportToPathNode", "bombpath1", 0, null)
-    EntFire("grenade_preview", "EnableDraw", null, 0.1, null)
-    EntFire("bombtrain", "StartForward", null, 0.1, null)
-    EntFire("tube_suction_bombs", "PlaySound", null, 0.6, null) // to be replaced with a playsound command
-    EntFire("grenade_preview", "DisableDraw", null, 1, null)
+    bomb_shooting_seq()
     // monitor's visuals
     monitor_ammo_update(ammo)
     EntFire("MC_brush_normal", "Color", "0 255 0", 0, null)
     EntFire("MC_brush_normal", "Color", "255 0 0", 1.5, null)
     // muzzle-light's logic
-    EntFire("bombs_shooting_light", "TurnOn", null, 1, null)
-    for (local k = 5; k > 0; --k) {
-        EntFire("bombs_shooting_light", "brightness", "" + k, 1.5 - 0.1*k, null)
-    }
-    EntFire("bombs_shooting_light", "TurnOff", null, 1.5, null)
+    bomb_launcher_light()
 }
 
 //to shoot from the rifle
@@ -86,14 +78,9 @@ function shoot_rifle() {
     // monitor's visuals
     monitor_ammo_update(ammo)
     EntFire("MC_brush_normal", "Color", "0 255 0", 1, null)
+    EntFire("MC_brush_normal", "Color", "255 0 0", 1.5, null)
     // rifle's sequence
-    EntFire("weapon_wholebodymovementreload", "Open", null, 0, null)
-    EntFire("weapon_aim_sprite", "HideSprite", null, 0, null)
-    EntFire("weapon_barell_door", "Open", null, 0.5, null)
-    EntFire("weapon_wholebodymovementreload", "Close", null, 0.5, null)
-    EntFire("robot_pos_interact", "PlaySound", null, 1, null) // to be replaced with a playsound command
-    EntFire("shooting_light", "TurnOn", null, 1, null)
-    EntFire("shooting_light", "TurnOff", null, 1.05, null)
+    rifle_seq()
 }
 
 function glados_wakes_up() {
