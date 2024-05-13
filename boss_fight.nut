@@ -34,7 +34,7 @@ function activate_the_villian() {
 }
 
 // to shoot bombs
-function shoot_bombs() { // analog of bombs_shooting_logic entity
+function shoot_bombs() {
     if (is_hiding || !GLaDOS_state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
     if (ammo == 0) {
         ammo = 3
@@ -47,17 +47,7 @@ function shoot_bombs() { // analog of bombs_shooting_logic entity
     EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
     EntFire("tank_*", "Activate", null, 1.5, null)
 
-    // visuals
-    EntFire("bombs_beep", "PlaySound", null, 0, null) // to be replaced with a playsound command
-    EntFire("bomb_shoot_sound", "PlaySound", null, 1, null) // to be replaced with a playsound command
-    // bomb launcher's sequence
-    bomb_shooting_seq()
-    // monitor's visuals
-    monitor_ammo_update(ammo)
-    EntFire("MC_brush_normal", "Color", "0 255 0", 0, null)
-    EntFire("MC_brush_normal", "Color", "255 0 0", 1.5, null)
-    // muzzle-light's logic
-    bomb_launcher_light()
+    bomb_visuals()
 }
 
 //to shoot from the rifle
@@ -75,25 +65,15 @@ function shoot_rifle() {
     EntFire("smg_turret", "Disable", null, 1.01, null)
     EntFire("game_n_script", "RunScriptCode", "shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
 
-    // monitor's visuals
-    monitor_ammo_update(ammo)
-    EntFire("MC_brush_normal", "Color", "0 255 0", 1, null)
-    EntFire("MC_brush_normal", "Color", "255 0 0", 1.5, null)
-    // rifle's sequence
-    rifle_seq()
+    rifle_visuals()
 }
 
 function glados_wakes_up() {
     printl("GLaDOS is waking up!") 
     // can make an array of animation names where health is used as an index, as
     // lower the healthbar, the more angry and exhausted are the animations
-    EntFire("GLaDOS_model", "SetAnimation", "glados_its_been_fun", 0, null) 
-    EntFire("tank_*", "Activate", null, 0, null) 
-    if (GLaDOS_health % 2 == 1) {
-        EntFire("GLaDOS_model", "SetDefaultAnimation", "glados_idle_agitated_more", 0, null) 
-    } else {
-        EntFire("GLaDOS_model", "SetDefaultAnimation", "glados_idle_agitated", 0, null) 
-    }
+    EntFire("tank_*", "Activate", null, 0, null)
+    wakeup_visuals(GLaDOS_health)
     GLaDOS_state = true  // GLaDOS' state is now "active"
     shoot_bombs()  // Thus, she can attack now
     shoot_rifle()
