@@ -6,6 +6,8 @@ IncludeScript("bossfight/bossfight_visuals")
 // Global Variables
 //
 
+Monitor <- monitor
+
 class GLaDOS_class {
     health = 0 // GLaDOS' health
     state = false // is GLaDOS active?
@@ -15,6 +17,20 @@ class GLaDOS_class {
     }
     function sleep() {
         state = false
+    }
+    function shoot_bomb(monitor = Monitor) {
+        if (ammo == 0) {
+            ammo = 3
+            monitor.update(ammo)
+            EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
+        }
+        // shooting logic
+        EntFire("tank_*", "Deactivate", null, 0, null)
+        --ammo
+        EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
+        EntFire("tank_*", "Activate", null, 1.5, null)
+
+        // bomb_visuals(ammo) // TO BE FIXED
     }
 }
 
@@ -45,24 +61,13 @@ function is_not_triggered() {
 
 function activate_the_villian() {
     GLaDOS.health = 4 // GLaDOS' health
-    GLaDOS.wakeup() //state = true
+    GLaDOS.wakeup()
 }
 
 // to shoot bombs
 function shoot_bombs() {
     if (Player.hiding || !GLaDOS.state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
-    if (GLaDOS.ammo == 0) {
-        GLaDOS.ammo = 3
-        monitor_ammo_update(GLaDOS.ammo)
-        EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
-    }
-    // shooting logic
-    EntFire("tank_*", "Deactivate", null, 0, null)
-    --GLaDOS.ammo
-    EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
-    EntFire("tank_*", "Activate", null, 1.5, null)
-
-    bomb_visuals()
+    GLaDOS.shoot_bomb()
 }
 
 //to shoot from the rifle
@@ -70,7 +75,7 @@ function shoot_rifle() {
     if (!Player.hiding || !GLaDOS.state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
     if (GLaDOS.ammo == 0) {
         GLaDOS.ammo = 5
-        monitor_ammo_update(GLaDOS.ammo)
+        Monitor.update(GLaDOS.ammo)
         EntFire("MC_brush_normal", "Color", "255 255 255", 1, null)
         EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
     }

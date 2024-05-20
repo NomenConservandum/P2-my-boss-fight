@@ -4,16 +4,18 @@ printl("Visual script is working\n")
 // VScript file for visuals
 //
 
+class monitor {
+    // numbers = "num2_" // doesn't work? Da hell?
+    function update(ammo) {
+        printl("Monitor is updated")
+        EntFire("num2_" + "*", "Disable", null, 0.00, null)
+        EntFire("num2_" + ammo, "Enable", null, 0.00, null)
+    }
+}
 
 //
 //  Simple functions
 //
-
-function monitor_ammo_update(ammo) {
-    printl("Monitor is updated")
-    EntFire("num2_*", "Disable", null, 0.00, null)
-    EntFire("num2_" + ("" + ammo), "Enable", null, 0.00, null)
-}
 
 function bomb_shooting_seq() {
     printl("Bomb sequence")
@@ -48,7 +50,7 @@ function rifle_seq() {
 //  Composed functions
 //
 
-function bomb_visuals() {
+function bomb_visuals(ammo) {
     EntFire("bombs_beep", "PlaySound", null, 0, null) // to be replaced with a playsound command
     EntFire("bomb_shoot_sound", "PlaySound", null, 1, null) // to be replaced with a playsound command
     // bomb launcher's sequence
@@ -61,7 +63,7 @@ function bomb_visuals() {
     bomb_launcher_light()
 }
 
-function rifle_visuals() {
+function rifle_visuals(ammo) {
     // monitor's visuals
     monitor_ammo_update(ammo)
     EntFire("MC_brush_normal", "Color", "0 255 0", 1, null)
@@ -70,9 +72,9 @@ function rifle_visuals() {
     rifle_seq()
 }
 
-function wakeup_visuals(GLaDOS_health) {
+function wakeup_visuals(health) {
     EntFire("GLaDOS_model", "SetAnimation", "glados_its_been_fun", 0, null)
-    if (GLaDOS_health % 2 == 1) {
+    if (health % 2 == 1) {
         EntFire("GLaDOS_model", "SetDefaultAnimation", "glados_idle_agitated_more", 0, null) 
     } else {
         EntFire("GLaDOS_model", "SetDefaultAnimation", "glados_idle_agitated", 0, null) 
