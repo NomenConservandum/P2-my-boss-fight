@@ -58,7 +58,7 @@ class GLaDOS_class {
         --ammo
         EntFire("smg_turret", "FireBullet", "player_target", 1, null)
         EntFire("smg_turret", "Disable", null, 1.01, null)
-        EntFire("game_n_script", "RunScriptCode", "shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
+        EntFire("game_n_script", "RunScriptCode", "GLaDOS.shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
 
         rifle.body_seq()
 
