@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "9672"
-	"mapversion" "2306"
+	"mapversion" "2308"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -170,6 +170,12 @@ visgroups
 		"visgroupid" "44"
 		"color" "210 171 184"
 	}
+	visgroup
+	{
+		"name" "hammer_logic"
+		"visgroupid" "45"
+		"color" "108 237 98"
+	}
 }
 viewsettings
 {
@@ -182,7 +188,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "2306"
+	"mapversion" "2308"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -25443,34 +25449,38 @@ entity
 		"logicalpos" "[0 9500]"
 	}
 }
-entity
+hidden
 {
-	"id" "15433"
-	"classname" "logic_relay"
-	"spawnflags" "0"
-	"targetname" "glados_shooting_permission"
-	connections
+	entity
 	{
-		"OnUser1" "bombs_shooting_logicEnable0-1"
-		"OnUser2" "bombs_shooting_logicDisable0-1"
-		"OnUser3" "shooting_logicEnable0-1"
-		"OnUser4" "shooting_logicDisable0-1"
-		"OnUser3" "shooting_logic_timerEnable0-1"
-		"OnUser4" "shooting_logic_timerDisable0-1"
-		"OnUser3" "turret_holder_counterSetValue50-1"
-		"OnUser1" "SMG_alt_counterSetValue30-1"
-		"OnUser2" "viewoftank_triggerDisable0-1"
-		"OnUser1" "viewoftank_triggerEnable0-1"
-		"OnUser1" "bombs_reload_relayEnable0-1"
-		"OnUser2" "bombs_reload_relayDisable0-1"
-	}
-	"origin" "2128 304 112"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 -9268]"
+		"id" "15433"
+		"classname" "logic_relay"
+		"spawnflags" "0"
+		"targetname" "glados_shooting_permission"
+		connections
+		{
+			"OnUser1" "bombs_shooting_logicEnable0-1"
+			"OnUser2" "bombs_shooting_logicDisable0-1"
+			"OnUser3" "shooting_logicEnable0-1"
+			"OnUser4" "shooting_logicDisable0-1"
+			"OnUser3" "shooting_logic_timerEnable0-1"
+			"OnUser4" "shooting_logic_timerDisable0-1"
+			"OnUser3" "turret_holder_counterSetValue50-1"
+			"OnUser1" "SMG_alt_counterSetValue30-1"
+			"OnUser2" "viewoftank_triggerDisable0-1"
+			"OnUser1" "viewoftank_triggerEnable0-1"
+			"OnUser1" "bombs_reload_relayEnable0-1"
+			"OnUser2" "bombs_reload_relayDisable0-1"
+		}
+		"origin" "2128 304 112"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 -9268]"
+		}
 	}
 }
 hidden
@@ -25911,24 +25921,28 @@ entity
 		"logicalpos" "[0 500]"
 	}
 }
-entity
+hidden
 {
-	"id" "5289"
-	"classname" "math_counter"
-	"angles" "0 0 0"
-	"startvalue" "3"
-	"targetname" "SMG_alt_counter"
-	connections
+	entity
 	{
-		"OutValue" "SMG_alt_caseInValue0-1"
-	}
-	"origin" "2208 304 96"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 7000]"
+		"id" "5289"
+		"classname" "math_counter"
+		"angles" "0 0 0"
+		"startvalue" "3"
+		"targetname" "SMG_alt_counter"
+		connections
+		{
+			"OutValue" "SMG_alt_caseInValue0-1"
+		}
+		"origin" "2208 304 96"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 7000]"
+		}
 	}
 }
 entity
@@ -35673,22 +35687,14 @@ entity
 	"targetname" "glass_window_break"
 	connections
 	{
-		"OnBreak" "TRAPshooting_logic_timerDisable0-1"
-		"OnBreak" "TRAPshooting_logic_timerKill0.01-1"
 		"OnBreak" "glass_window_break_lightTurnOn0.01-1"
 		"OnBreak" "glass_window_break_lightFadeToPatternzzzzzzzzzzzzzzzzzzzzzzzzzz1-1"
-		"OnBreak" "tank_ySetTargetEntityplayer_target0-1"
 		"OnBreak" "glass_window_break_modelEnableDraw0-1"
 		"OnBreak" "glass_window_break_modelSetAnimationcollapse_10-1"
-		"OnBreak" "glass_window_break_prefootstepssoundDisable0-1"
 		"OnBreak" "glass_window_break_particleStart0-1"
 		"OnBreak" "glass_window_break_particleStop0.05-1"
-		"OnBreak" "glass_window_break_targettrainStop0-1"
-		"OnBreak" "TRAPshooting_logic_timerKill0.05-1"
-		"OnBreak" "glass_window_break_targettrainKill0.05-1"
-		"OnBreak" "glass_window_break_targettrain_path*Kill0.05-1"
-		"OnBreak" "glass_window_break_gibs_on_tableOpen0-1"
 		"OnBreak" "white_panel01_doorbaseOpen0-1"
+		"OnBreak" "game_n_scriptRunScriptCodesettarget(1)0-1"
 	}
 	solid
 	{
@@ -36655,16 +36661,12 @@ entity
 	"targetname" "trigger_to_shoot_here"
 	connections
 	{
-		"OnTrigger" "TRAPshooting_logic_timerEnable0-1"
-		"OnTrigger" "glass_window_break_lightTurnOff0-1"
-		"OnTrigger" "tank_ySetTargetEntityNameglass_window_break_target0-1"
 		"OnTrigger" "trap_lightTurnOff0-1"
-		"OnTrigger" "glass_window_break_modelDisableDraw0-1"
-		"OnTrigger" "glass_window_break_targettrainStartForward0-1"
 		"OnTrigger" "trap_train_armSetAnimation90down2-1"
 		"OnTrigger" "trap_arm_close_soundPlaySound1.75-1"
 		"OnTrigger" "trap_train_armSetParenttrap_movelinear23.5-1"
 		"OnTrigger" "trap_movelinear2Open3.5-1"
+		"OnTrigger" "game_n_scriptRunScriptCodesettarget(0)0-1"
 	}
 	solid
 	{
@@ -36768,27 +36770,6 @@ entity
 }
 entity
 {
-	"id" "85745"
-	"classname" "logic_timer"
-	"RefireTime" "1"
-	"spawnflags" "0"
-	"StartDisabled" "1"
-	"targetname" "TRAPshooting_logic_timer"
-	connections
-	{
-		"OnTimer" "TRAPshooting_logicTrigger0-1"
-	}
-	"origin" "224 912 272"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 0]"
-	}
-}
-entity
-{
 	"id" "85747"
 	"classname" "info_particle_system"
 	"angles" "0 90 0"
@@ -36802,35 +36783,6 @@ entity
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 10000]"
-	}
-}
-entity
-{
-	"id" "85812"
-	"classname" "logic_relay"
-	"spawnflags" "2"
-	"StartDisabled" "0"
-	"targetname" "TRAPshooting_logic"
-	connections
-	{
-		"OnTrigger" "shooting_lightTurnOn0-1"
-		"OnTrigger" "shooting_lightTurnOff0.05-1"
-		"OnTrigger" "smg_turretFireBulletglass_window_break_target0-1"
-		"OnTrigger" "smg_turretDisable0.05-1"
-		"OnTrigger" "smg_turretDisable0.01-1"
-		"OnTrigger" "smg_turretDisable0.09-1"
-		"OnTrigger" "weapon_animation_relayTrigger0-1"
-		"OnSpawn" "glass_window_break_lightTurnOff0-1"
-		"OnTrigger" "trap_glados_fake_shootingEnable0-1"
-		"OnTrigger" "trap_glados_fake_shootingDisable0.05-1"
-	}
-	"origin" "208 912 272"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 6000]"
 	}
 }
 entity
@@ -40188,48 +40140,56 @@ hidden
 		}
 	}
 }
-entity
+hidden
 {
-	"id" "1701"
-	"classname" "logic_relay"
-	"spawnflags" "2"
-	"StartDisabled" "0"
-	"targetname" "bombs_shooting_relay"
-	connections
+	entity
 	{
-		"OnUser2" "MC_brush_normalColor255 0 00-1"
-		"OnUser2" "num2_*Disable0-1"
-		"OnUser1" "bombs_shooting_logicTrigger0-1"
-	}
-	"origin" "2176 304 96"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 0]"
+		"id" "1701"
+		"classname" "logic_relay"
+		"spawnflags" "2"
+		"StartDisabled" "0"
+		"targetname" "bombs_shooting_relay"
+		connections
+		{
+			"OnUser2" "MC_brush_normalColor255 0 00-1"
+			"OnUser2" "num2_*Disable0-1"
+			"OnUser1" "bombs_shooting_logicTrigger0-1"
+		}
+		"origin" "2176 304 96"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 0]"
+		}
 	}
 }
-entity
+hidden
 {
-	"id" "1623"
-	"classname" "logic_relay"
-	"spawnflags" "2"
-	"StartDisabled" "0"
-	"targetname" "shooting_relay"
-	connections
+	entity
 	{
-		"OnUser2" "MC_brush_normalColor255 0 00-1"
-		"OnUser2" "num2_*Disable0-1"
-		"OnUser1" "shooting_logicTrigger0-1"
-	}
-	"origin" "2176 304 112"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 0]"
+		"id" "1623"
+		"classname" "logic_relay"
+		"spawnflags" "2"
+		"StartDisabled" "0"
+		"targetname" "shooting_relay"
+		connections
+		{
+			"OnUser2" "MC_brush_normalColor255 0 00-1"
+			"OnUser2" "num2_*Disable0-1"
+			"OnUser1" "shooting_logicTrigger0-1"
+		}
+		"origin" "2176 304 112"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 0]"
+		}
 	}
 }
 entity
@@ -40257,40 +40217,44 @@ entity
 		"logicalpos" "[4000 1000]"
 	}
 }
-entity
+hidden
 {
-	"id" "1478"
-	"classname" "logic_relay"
-	"spawnflags" "2"
-	"StartDisabled" "1"
-	"targetname" "bombs_shooting_logic"
-	connections
+	entity
 	{
-		"OnTrigger" "bombs_shooting_lightTurnOn1-1"
-		"OnTrigger" "bombs_shooting_lightTurnOff1.5-1"
-		"OnTrigger" "bombs_beepPlaySound0-1"
-		"OnTrigger" "bomb_launcher_eemForceSpawn1-1"
-		"OnTrigger" "bomb_shoot_soundPlaySound1-1"
-		"OnTrigger" "bombs_shooting_lightbrightness41.1-1"
-		"OnTrigger" "bombs_shooting_lightbrightness31.2-1"
-		"OnTrigger" "bombs_shooting_lightbrightness21.3-1"
-		"OnTrigger" "bombs_shooting_lightbrightness11.4-1"
-		"OnTrigger" "bombs_shooting_lightbrightness52-1"
-		"OnTrigger" "SMG_alt_counterSubtract10.02-1"
-		"OnTrigger" "tank_*Deactivate0-1"
-		"OnTrigger" "tank_*Activate1.5-1"
-		"OnTrigger" "MC_brush_normalColor0 255 00-1"
-		"OnTrigger" "bomb_visual_logicTrigger0-1"
-		"OnTrigger" "tank_*ClearTargetEntity0.01-1"
-		"OnTrigger" "tank_*SetTargetEntityplayer_target1.51-1"
-	}
-	"origin" "2192 304 96"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 6000]"
+		"id" "1478"
+		"classname" "logic_relay"
+		"spawnflags" "2"
+		"StartDisabled" "1"
+		"targetname" "bombs_shooting_logic"
+		connections
+		{
+			"OnTrigger" "bombs_shooting_lightTurnOn1-1"
+			"OnTrigger" "bombs_shooting_lightTurnOff1.5-1"
+			"OnTrigger" "bombs_beepPlaySound0-1"
+			"OnTrigger" "bomb_launcher_eemForceSpawn1-1"
+			"OnTrigger" "bomb_shoot_soundPlaySound1-1"
+			"OnTrigger" "bombs_shooting_lightbrightness41.1-1"
+			"OnTrigger" "bombs_shooting_lightbrightness31.2-1"
+			"OnTrigger" "bombs_shooting_lightbrightness21.3-1"
+			"OnTrigger" "bombs_shooting_lightbrightness11.4-1"
+			"OnTrigger" "bombs_shooting_lightbrightness52-1"
+			"OnTrigger" "SMG_alt_counterSubtract10.02-1"
+			"OnTrigger" "tank_*Deactivate0-1"
+			"OnTrigger" "tank_*Activate1.5-1"
+			"OnTrigger" "MC_brush_normalColor0 255 00-1"
+			"OnTrigger" "bomb_visual_logicTrigger0-1"
+			"OnTrigger" "tank_*ClearTargetEntity0.01-1"
+			"OnTrigger" "tank_*SetTargetEntityplayer_target1.51-1"
+		}
+		"origin" "2192 304 96"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 6000]"
+		}
 	}
 }
 entity
@@ -40319,36 +40283,40 @@ entity
 		"logicalpos" "[0 8000]"
 	}
 }
-entity
+hidden
 {
-	"id" "1410"
-	"classname" "logic_case"
-	"angles" "0 0 0"
-	"Case01" "0"
-	"Case02" "1"
-	"Case03" "2"
-	"Case04" "3"
-	"Case05" "4"
-	"Case06" "5"
-	"targetname" "turret_holder_case01"
-	connections
+	entity
 	{
-		"OnCase01" "glados_shooting_permissionFireUser40-1"
-		"OnCase02" "num2_1Enable0-1"
-		"OnCase03" "num2_2Enable0-1"
-		"OnCase04" "num2_3Enable0-1"
-		"OnCase05" "num2_4Enable0-1"
-		"OnCase06" "num2_5Enable0-1"
-		"OnCase01" "num2_0Enable0-1"
-		"OnCase01" "num2_*Disable1-1"
-	}
-	"origin" "2224 304 112"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 7000]"
+		"id" "1410"
+		"classname" "logic_case"
+		"angles" "0 0 0"
+		"Case01" "0"
+		"Case02" "1"
+		"Case03" "2"
+		"Case04" "3"
+		"Case05" "4"
+		"Case06" "5"
+		"targetname" "turret_holder_case01"
+		connections
+		{
+			"OnCase01" "glados_shooting_permissionFireUser40-1"
+			"OnCase02" "num2_1Enable0-1"
+			"OnCase03" "num2_2Enable0-1"
+			"OnCase04" "num2_3Enable0-1"
+			"OnCase05" "num2_4Enable0-1"
+			"OnCase06" "num2_5Enable0-1"
+			"OnCase01" "num2_0Enable0-1"
+			"OnCase01" "num2_*Disable1-1"
+		}
+		"origin" "2224 304 112"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 7000]"
+		}
 	}
 }
 entity
@@ -40464,25 +40432,29 @@ entity
 		"logicalpos" "[0 8000]"
 	}
 }
-entity
+hidden
 {
-	"id" "60054"
-	"classname" "logic_relay"
-	"spawnflags" "2"
-	"StartDisabled" "0"
-	"targetname" "bombs_reload_relay"
-	connections
+	entity
 	{
-		"OnTrigger" "glados_shooting_permissionFireUser11-1"
-		"OnTrigger" "portalgun_powerup1PlaySound0-1"
-	}
-	"origin" "2160 304 96"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 0]"
+		"id" "60054"
+		"classname" "logic_relay"
+		"spawnflags" "2"
+		"StartDisabled" "0"
+		"targetname" "bombs_reload_relay"
+		connections
+		{
+			"OnTrigger" "glados_shooting_permissionFireUser11-1"
+			"OnTrigger" "portalgun_powerup1PlaySound0-1"
+		}
+		"origin" "2160 304 96"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 0]"
+		}
 	}
 }
 entity
@@ -57059,25 +57031,29 @@ entity
 		"logicalpos" "[1000 2000]"
 	}
 }
-entity
+hidden
 {
-	"id" "1408"
-	"classname" "math_counter"
-	"angles" "0 0 0"
-	"max" "0"
-	"startvalue" "5"
-	"targetname" "turret_holder_counter"
-	connections
+	entity
 	{
-		"OutValue" "turret_holder_case01InValue0.05-1"
-	}
-	"origin" "2208 304 112"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 7000]"
+		"id" "1408"
+		"classname" "math_counter"
+		"angles" "0 0 0"
+		"max" "0"
+		"startvalue" "5"
+		"targetname" "turret_holder_counter"
+		connections
+		{
+			"OutValue" "turret_holder_case01InValue0.05-1"
+		}
+		"origin" "2208 304 112"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 7000]"
+		}
 	}
 }
 entity
@@ -57105,33 +57081,37 @@ entity
 		"logicalpos" "[4000 1000]"
 	}
 }
-entity
+hidden
 {
-	"id" "1371"
-	"classname" "logic_relay"
-	"spawnflags" "2"
-	"StartDisabled" "1"
-	"targetname" "shooting_logic"
-	connections
+	entity
 	{
-		"OnTrigger" "shooting_lightTurnOn0-1"
-		"OnTrigger" "shooting_lightTurnOff0.05-1"
-		"OnTrigger" "turret_holder_counterSubtract10.01-1"
-		"OnTrigger" "smg_turretFireBulletplayer_target0-1"
-		"OnTrigger" "smg_turretDisable0.05-1"
-		"OnTrigger" "num2_*Disable0-1"
-		"OnTrigger" "MC_brush_normalColor0 255 00-1"
-		"OnTrigger" "smg_turretDisable0.01-1"
-		"OnTrigger" "smg_turretDisable0.09-1"
-		"OnTrigger" "weapon_animation_relayTrigger0-1"
-	}
-	"origin" "2192 304 112"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 6000]"
+		"id" "1371"
+		"classname" "logic_relay"
+		"spawnflags" "2"
+		"StartDisabled" "1"
+		"targetname" "shooting_logic"
+		connections
+		{
+			"OnTrigger" "shooting_lightTurnOn0-1"
+			"OnTrigger" "shooting_lightTurnOff0.05-1"
+			"OnTrigger" "turret_holder_counterSubtract10.01-1"
+			"OnTrigger" "smg_turretFireBulletplayer_target0-1"
+			"OnTrigger" "smg_turretDisable0.05-1"
+			"OnTrigger" "num2_*Disable0-1"
+			"OnTrigger" "MC_brush_normalColor0 255 00-1"
+			"OnTrigger" "smg_turretDisable0.01-1"
+			"OnTrigger" "smg_turretDisable0.09-1"
+			"OnTrigger" "weapon_animation_relayTrigger0-1"
+		}
+		"origin" "2192 304 112"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 6000]"
+		}
 	}
 }
 entity
@@ -60689,27 +60669,31 @@ entity
 		"logicalpos" "[0 1000]"
 	}
 }
-entity
+hidden
 {
-	"id" "20359"
-	"classname" "logic_relay"
-	"spawnflags" "2"
-	"targetname" "bomb_visual_logic"
-	connections
+	entity
 	{
-		"OnTrigger" "grenade_previewDisableDraw1-1"
-		"OnTrigger" "grenade_previewEnableDraw0.1-1"
-		"OnTrigger" "bombtrainTeleportToPathNodebombpath10-1"
-		"OnTrigger" "tube_suction_bombsPlaySound0.6-1"
-		"OnTrigger" "bombtrainStartForward0.1-1"
-	}
-	"origin" "2192 288 96"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 1500]"
+		"id" "20359"
+		"classname" "logic_relay"
+		"spawnflags" "2"
+		"targetname" "bomb_visual_logic"
+		connections
+		{
+			"OnTrigger" "grenade_previewDisableDraw1-1"
+			"OnTrigger" "grenade_previewEnableDraw0.1-1"
+			"OnTrigger" "bombtrainTeleportToPathNodebombpath10-1"
+			"OnTrigger" "tube_suction_bombsPlaySound0.6-1"
+			"OnTrigger" "bombtrainStartForward0.1-1"
+		}
+		"origin" "2192 288 96"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 1500]"
+		}
 	}
 }
 entity
@@ -61359,27 +61343,31 @@ hidden
 		}
 	}
 }
-entity
+hidden
 {
-	"id" "23134"
-	"classname" "logic_relay"
-	"spawnflags" "2"
-	"targetname" "weapon_animation_relay"
-	connections
+	entity
 	{
-		"OnTrigger" "weapon_wholebodymovementreloadOpen0-1"
-		"OnTrigger" "weapon_aim_spriteHideSprite0-1"
-		"OnTrigger" "weapon_barell_doorOpen0.5-1"
-		"OnTrigger" "weapon_wholebodymovementreloadClose0.5-1"
-		"OnTrigger" "robot_pos_interactPlaySound1-1"
-	}
-	"origin" "2192 288 112"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[500 6000]"
+		"id" "23134"
+		"classname" "logic_relay"
+		"spawnflags" "2"
+		"targetname" "weapon_animation_relay"
+		connections
+		{
+			"OnTrigger" "weapon_wholebodymovementreloadOpen0-1"
+			"OnTrigger" "weapon_aim_spriteHideSprite0-1"
+			"OnTrigger" "weapon_barell_doorOpen0.5-1"
+			"OnTrigger" "weapon_wholebodymovementreloadClose0.5-1"
+			"OnTrigger" "robot_pos_interactPlaySound1-1"
+		}
+		"origin" "2192 288 112"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[500 6000]"
+		}
 	}
 }
 hidden
@@ -61572,39 +61560,43 @@ hidden
 		}
 	}
 }
-entity
+hidden
 {
-	"id" "5291"
-	"classname" "logic_case"
-	"angles" "0 0 0"
-	"Case01" "0"
-	"Case02" "1"
-	"Case03" "2"
-	"Case04" "3"
-	"targetname" "SMG_alt_case"
-	connections
+	entity
 	{
-		"OnCase04" "num2_3Enable0.01-1"
-		"OnCase03" "num2_2Enable0.01-1"
-		"OnCase02" "num2_1Enable0.01-1"
-		"OnCase01" "num2_0Enable0.01-1"
-		"OnCase01" "num2_0Disable1-1"
-		"OnCase01" "bombs_shooting_relayFireUser21-1"
-		"OnCase04" "num2_*Disable0-1"
-		"OnCase03" "num2_3Disable0-1"
-		"OnCase02" "num2_2Disable0-1"
-		"OnCase01" "num2_1Disable0-1"
-		"OnCase01" "bombs_reload_relayTrigger1-1"
-		"OnCase01" "viewoftank_triggerDisable1-1"
-		"OnCase01" "bombs_shooting_logicDisable1-1"
-	}
-	"origin" "2224 304 96"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 10500]"
+		"id" "5291"
+		"classname" "logic_case"
+		"angles" "0 0 0"
+		"Case01" "0"
+		"Case02" "1"
+		"Case03" "2"
+		"Case04" "3"
+		"targetname" "SMG_alt_case"
+		connections
+		{
+			"OnCase04" "num2_3Enable0.01-1"
+			"OnCase03" "num2_2Enable0.01-1"
+			"OnCase02" "num2_1Enable0.01-1"
+			"OnCase01" "num2_0Enable0.01-1"
+			"OnCase01" "num2_0Disable1-1"
+			"OnCase01" "bombs_shooting_relayFireUser21-1"
+			"OnCase04" "num2_*Disable0-1"
+			"OnCase03" "num2_3Disable0-1"
+			"OnCase02" "num2_2Disable0-1"
+			"OnCase01" "num2_1Disable0-1"
+			"OnCase01" "bombs_reload_relayTrigger1-1"
+			"OnCase01" "viewoftank_triggerDisable1-1"
+			"OnCase01" "bombs_shooting_logicDisable1-1"
+		}
+		"origin" "2224 304 96"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 10500]"
+		}
 	}
 }
 entity
@@ -62383,25 +62375,29 @@ hidden
 		}
 	}
 }
-entity
+hidden
 {
-	"id" "16864"
-	"classname" "logic_timer"
-	"RefireTime" "1"
-	"spawnflags" "0"
-	"StartDisabled" "1"
-	"targetname" "shooting_logic_timer"
-	connections
+	entity
 	{
-		"OnTimer" "shooting_relayFireUser10-1"
-	}
-	"origin" "2160 304 112"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 0]"
+		"id" "16864"
+		"classname" "logic_timer"
+		"RefireTime" "1"
+		"spawnflags" "0"
+		"StartDisabled" "1"
+		"targetname" "shooting_logic_timer"
+		connections
+		{
+			"OnTimer" "shooting_relayFireUser10-1"
+		}
+		"origin" "2160 304 112"
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupid" "45"
+			"visgroupshown" "0"
+			"visgroupautoshown" "1"
+			"logicalpos" "[0 0]"
+		}
 	}
 }
 cameras

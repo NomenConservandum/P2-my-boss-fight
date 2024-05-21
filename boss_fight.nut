@@ -6,11 +6,11 @@ IncludeScript("bossfight/bossfight_visuals")
 // Global Variables
 //
 
-
 Bomb_launcher <- bomb_launcher
 Rifle <- rifle
 
 class player {
+    target = "player_target"
     hiding = false // is player hiding?
 }
 
@@ -56,7 +56,7 @@ class glados {
         }
         // shooting logic
         --ammo
-        EntFire("smg_turret", "FireBullet", "player_target", 1, null)
+        EntFire("smg_turret", "FireBullet", player.target, 1, null)
         EntFire("smg_turret", "Disable", null, 1.01, null)
         EntFire("game_n_script", "RunScriptCode", "GLaDOS.shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
 
@@ -81,6 +81,12 @@ function istriggered() {
 function is_not_triggered() {
     Player.hiding = false
     GLaDOS.ammo = 0
+}
+
+function settarget(target_id, player = Player) {
+    local targets = ["glass_window_break_target", "player_target"]
+    player.target = targets[target_id]
+    EntFire("tank_*", "SetTargetEntityName", player.target, 1, null)
 }
 
 //
@@ -133,6 +139,7 @@ function glados_is_attacked() {
 // Prework on dev stage
 //
 EntFire("viewoftank_trigger", "Enable", null, 0, null)
-// GLaDOS.state = true
 EntFire("tank_*", "SetTargetEntity", "player_target", 0, null)
 EntFire("player_detector", "SetTargetEntity", "player_target", 0, null)
+EntFire("glass_window_break_model", "DisableDraw", null, 0, null)
+EntFire("glass_window_break_light", "TurnOff", null, 0, null)
