@@ -10,13 +10,13 @@ IncludeScript("bossfight/bossfight_visuals")
 Bomb_launcher <- bomb_launcher
 Rifle <- rifle
 
-class Player_class {
+class player {
     hiding = false // is player hiding?
 }
 
-Player <- Player_class()
+Player <- player()
 
-class GLaDOS_class {
+class glados {
     health = 0 // GLaDOS' health
     state = false // is GLaDOS active?
     ammo = 0
@@ -67,7 +67,7 @@ class GLaDOS_class {
     }
 }
 
-GLaDOS <- GLaDOS_class()
+GLaDOS <- glados()
 
 //
 // Triggers' Logic
