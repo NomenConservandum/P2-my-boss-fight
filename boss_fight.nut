@@ -26,6 +26,7 @@ class GLaDOS_class {
     function sleep() {
         state = false
     }
+
     function shoot_bomb(monitor = Monitor, bomb_laun = Bomb_launcher, player = Player) {
         if (player.hiding || !state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
         if (ammo == 0) {
@@ -45,7 +46,6 @@ class GLaDOS_class {
         // monitor's visuals
         monitor.update(ammo)
     }
-
     function shoot_rifle(monitor = Monitor, rifle = Rifle, player = Player) {
         if (!player.hiding || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
         if (ammo == 0) {
@@ -75,7 +75,7 @@ GLaDOS <- GLaDOS_class()
 function istriggered() {
 	Player.hiding = true
     GLaDOS.ammo = 0
-    shoot_rifle()
+    GLaDOS.shoot_rifle()
 }
 
 function is_not_triggered() {
@@ -92,16 +92,6 @@ function activate_the_villian() {
     GLaDOS.wakeup()
 }
 
-// to shoot bombs
-function shoot_bombs() {
-    GLaDOS.shoot_bomb()
-}
-
-//to shoot from the rifle
-function shoot_rifle() {
-    GLaDOS.shoot_rifle()
-}
-
 function glados_wakes_up() {
     printl("GLaDOS is waking up!") 
     // can make an array of animation names where health is used as an index, as
@@ -109,8 +99,8 @@ function glados_wakes_up() {
     EntFire("tank_*", "Activate", null, 0, null)
     wakeup_visuals(GLaDOS.health)
     GLaDOS.wakeup() //state = true  // GLaDOS' state is now "active"
-    shoot_bombs()  // Thus, she can attack now
-    shoot_rifle()
+    GLaDOS.shoot_bomb()  // Thus, she can attack now
+    GLaDOS.shoot_rifle()
 }
 
 function glados_is_attacked() {
