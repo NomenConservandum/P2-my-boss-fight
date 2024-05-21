@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "9672"
-	"mapversion" "2305"
+	"mapversion" "2306"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -182,7 +182,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "2305"
+	"mapversion" "2306"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -9446,7 +9446,7 @@ entity
 	"id" "127695"
 	"classname" "logic_script"
 	"targetname" "game_n_script"
-	"vscripts" "bossfight/boss_fight.nut"
+	"vscripts" "bossfight/boss_fight.nut bossfight/bossfight_visuals.nut"
 	"origin" "448 128 8"
 	editor
 	{
@@ -25959,7 +25959,7 @@ entity
 	connections
 	{
 		"OnUser1" "bombs_shooting_relayFireUser10-1"
-		"OnTrigger" "game_n_scriptRunScriptCodeshoot_bombs()0-1"
+		"OnTrigger" "game_n_scriptRunScriptCodeGLaDOS.shoot_bomb()0-1"
 	}
 	solid
 	{

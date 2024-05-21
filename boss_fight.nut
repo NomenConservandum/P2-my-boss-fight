@@ -6,6 +6,16 @@ IncludeScript("bossfight/bossfight_visuals")
 // Global Variables
 //
 
+
+Bomb_launcher <- bomb_launcher
+Rifle <- rifle
+
+class Player_class {
+    hiding = false // is player hiding?
+}
+
+Player <- Player_class()
+
 class GLaDOS_class {
     health = 0 // GLaDOS' health
     state = false // is GLaDOS active?
@@ -16,13 +26,47 @@ class GLaDOS_class {
     function sleep() {
         state = false
     }
+
+    function shoot_bomb(monitor = Monitor, bomb_laun = Bomb_launcher, player = Player) {
+        if (player.hiding || !state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
+        if (ammo == 0) {
+            ammo = 3
+            bomb_laun.reload_seq(ammo, monitor)
+        }
+        // shooting logic
+        EntFire("tank_*", "Deactivate", null, 0, null)
+        --ammo
+        EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
+        EntFire("tank_*", "Activate", null, 1.5, null)
+
+        bomb_laun.load_seq()
+        bomb_laun.shoot_seq()
+        bomb_laun.light_seq()
+
+        // monitor's visuals
+        monitor.update(ammo)
+    }
+    function shoot_rifle(monitor = Monitor, rifle = Rifle, player = Player) {
+        if (!player.hiding || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
+        if (ammo == 0) {
+            ammo = 5
+            monitor.update(ammo)
+            EntFire("MC_brush_normal", "Color", "255 255 255", 1, null)
+            EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
+        }
+        // shooting logic
+        --ammo
+        EntFire("smg_turret", "FireBullet", "player_target", 1, null)
+        EntFire("smg_turret", "Disable", null, 1.01, null)
+        EntFire("game_n_script", "RunScriptCode", "GLaDOS.shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
+
+        rifle.body_seq()
+
+        // monitor's visuals
+        monitor.update(ammo)
+    }
 }
 
-class Player_class {
-    hiding = false // is player hiding?
-}
-
-Player <- Player_class()
 GLaDOS <- GLaDOS_class()
 
 //
@@ -31,7 +75,7 @@ GLaDOS <- GLaDOS_class()
 function istriggered() {
 	Player.hiding = true
     GLaDOS.ammo = 0
-    shoot_rifle()
+    GLaDOS.shoot_rifle()
 }
 
 function is_not_triggered() {
@@ -45,42 +89,7 @@ function is_not_triggered() {
 
 function activate_the_villian() {
     GLaDOS.health = 4 // GLaDOS' health
-    GLaDOS.wakeup() //state = true
-}
-
-// to shoot bombs
-function shoot_bombs() {
-    if (Player.hiding || !GLaDOS.state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
-    if (GLaDOS.ammo == 0) {
-        GLaDOS.ammo = 3
-        monitor_ammo_update(GLaDOS.ammo)
-        EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
-    }
-    // shooting logic
-    EntFire("tank_*", "Deactivate", null, 0, null)
-    --GLaDOS.ammo
-    EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
-    EntFire("tank_*", "Activate", null, 1.5, null)
-
-    bomb_visuals()
-}
-
-//to shoot from the rifle
-function shoot_rifle() {
-    if (!Player.hiding || !GLaDOS.state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
-    if (GLaDOS.ammo == 0) {
-        GLaDOS.ammo = 5
-        monitor_ammo_update(GLaDOS.ammo)
-        EntFire("MC_brush_normal", "Color", "255 255 255", 1, null)
-        EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
-    }
-    // shooting logic
-    --GLaDOS.ammo
-    EntFire("smg_turret", "FireBullet", "player_target", 1, null)
-    EntFire("smg_turret", "Disable", null, 1.01, null)
-    EntFire("game_n_script", "RunScriptCode", "shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
-
-    rifle_visuals(GLaDOS.ammo)
+    GLaDOS.wakeup()
 }
 
 function glados_wakes_up() {
@@ -90,8 +99,8 @@ function glados_wakes_up() {
     EntFire("tank_*", "Activate", null, 0, null)
     wakeup_visuals(GLaDOS.health)
     GLaDOS.wakeup() //state = true  // GLaDOS' state is now "active"
-    shoot_bombs()  // Thus, she can attack now
-    shoot_rifle()
+    GLaDOS.shoot_bomb()  // Thus, she can attack now
+    GLaDOS.shoot_rifle()
 }
 
 function glados_is_attacked() {
