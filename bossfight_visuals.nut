@@ -16,13 +16,16 @@ class monitor {
 
 Monitor <- monitor
 
-class bomb_launcher {
+class weapon {
     function reload_seq(ammo, monitor = Monitor) {
         printl("reload sequence")
 
         monitor.update(ammo)
         EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
     }
+}
+
+class bomb_launcher extends weapon {
     function load_seq() {
         printl("load sequence")
         
@@ -48,13 +51,7 @@ class bomb_launcher {
     }
 }
 
-class rifle {
-    function reload_seq(ammo, monitor = Monitor) {
-        printl("reload sequence")
-
-        monitor.update(ammo)
-        EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
-    }
+class rifle extends weapon{
     function body_seq() { // rifle's sequence
         printl("Rifle sequence")
         EntFire("weapon_wholebodymovementreload", "Open", null, 0, null)
