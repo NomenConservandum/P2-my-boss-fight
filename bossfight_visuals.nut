@@ -5,7 +5,7 @@ printl("Visual script is working\n")
 //
 
 class monitor {
-    // numbers = "num2_" // doesn't work? Da hell?
+    //numbers = "num2_" // doesn't work? Da hell?
     function update(ammo) {
         printl("Monitor is updated")
         EntFire("num2_" + "*", "Disable", null, 0.00, null)
@@ -50,6 +50,13 @@ class bomb_launcher {
 }
 
 class rifle {
+    function reload_seq(ammo, monitor = Monitor) {
+        printl("reload sequence")
+
+        monitor.update(ammo)
+        EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
+        EntFire("MC_brush_normal", "Color", "255 255 255", 1, null)
+    }
     function body_seq() { // rifle's sequence
         printl("Rifle sequence")
         EntFire("weapon_wholebodymovementreload", "Open", null, 0, null)

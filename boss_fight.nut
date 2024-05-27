@@ -54,9 +54,7 @@ class glados {
         if (!player.hiding || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
         if (ammo == 0) {
             ammo = 5
-            monitor.update(ammo)
-            EntFire("MC_brush_normal", "Color", "255 255 255", 1, null)
-            EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
+            Rifle.reload_seq(ammo, monitor)
         }
         // shooting logic
         --ammo
