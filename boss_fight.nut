@@ -6,11 +6,6 @@ IncludeScript("bossfight/bossfight_visuals")
 // Global Variables
 //
 
-/*
-Bomb_launcher <- bomb_launcher
-Rifle <- rifle
-*/
-
 class player {
     target = "player_target"
     hiding = false // is player hiding?
@@ -116,7 +111,6 @@ function glados_is_attacked() {
     --GLaDOS.health // healthbar is lowered
     printl("GLaDOS' health: " + GLaDOS.health)
     if (GLaDOS.health <= 0) { // checks the healthbar
-        //if ( DBG ) printl("GLaDOS is dead!")
         // victory sequence
     } else {
         EntFire("screen_diagnostic_slideshow", "Trigger", null, 0, null)  // diagnostics animation
