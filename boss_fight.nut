@@ -18,7 +18,7 @@ class glados {
     Rifle = rifle()
     health = 0 // GLaDOS' health
     state = false // is GLaDOS active?
-    //ammo = 0
+
     function wakeup() {
         state = true
     }
@@ -29,8 +29,7 @@ class glados {
     function shoot_bomb(monitor = Monitor, player = Player) {
         if (player.hiding || !state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
         if (Bomb_launcher.ammo == 0) {
-            Bomb_launcher.ammo = 3
-            Bomb_launcher.reload_seq(monitor)
+            Bomb_launcher.reload_seq(monitor, 3)
         }
         // shooting logic
         EntFire("tank_*", "Deactivate", null, 0, null)
@@ -43,13 +42,12 @@ class glados {
         Bomb_launcher.light_seq()
 
         // monitor's visuals
-        monitor.update(Bomb_launcher.ammo)
+        monitor.update(Bomb_launcher.ammo, 0.5)
     }
     function shoot_rifle(monitor = Monitor, player = Player) {
         if (!player.hiding || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
         if (Rifle.ammo == 0) {
-            Rifle.ammo = 5
-            Rifle.reload_seq(monitor)
+            Rifle.reload_seq(monitor, 5)
         }
         // shooting logic
         --Rifle.ammo
@@ -60,7 +58,7 @@ class glados {
         Rifle.body_seq()
 
         // monitor's visuals
-        monitor.update(Rifle.ammo)
+        monitor.update(Rifle.ammo, 0.5)
     }
 }
 

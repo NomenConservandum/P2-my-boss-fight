@@ -5,12 +5,12 @@ printl("Visual script is working\n")
 //
 
 class monitor {
-    function update(ammo) {
+    function update(ammo, delay = 0) {
         printl("Monitor is updated")
-        EntFire("num2_" + "*", "Disable", null, 0.00, null)
-        EntFire("num2_" + ammo, "Enable", null, 0.00, null)
-        EntFire("MC_brush_normal", "Color", "0 255 0", 1, null)
-        EntFire("MC_brush_normal", "Color", "255 0 0", 1.5, null)
+        EntFire("num2_*", "Disable", null, 0.00, null)
+        EntFire("num2_" + ammo, "Enable", null, delay + 0.01, null)
+        EntFire("MC_brush_normal", "Color", "0 255 0", delay + 1, null)
+        EntFire("MC_brush_normal", "Color", "255 0 0", delay + 1.5, null)
     }
 }
 
@@ -18,9 +18,9 @@ Monitor <- monitor
 
 class weapon {
     ammo = 0
-    function reload_seq(monitor = Monitor) {
+    function reload_seq(monitor = Monitor, amount = 3) {
         printl("reload sequence")
-
+        ammo = amount
         monitor.update(ammo)
         EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
     }
