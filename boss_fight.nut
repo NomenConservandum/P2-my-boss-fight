@@ -6,8 +6,10 @@ IncludeScript("bossfight/bossfight_visuals")
 // Global Variables
 //
 
+/*
 Bomb_launcher <- bomb_launcher
 Rifle <- rifle
+*/
 
 class player {
     target = "player_target"
@@ -17,6 +19,8 @@ class player {
 Player <- player()
 
 class glados {
+    Bomb_launcher = bomb_launcher
+    Rifle = rifle
     health = 0 // GLaDOS' health
     state = false // is GLaDOS active?
     ammo = 0
@@ -27,11 +31,11 @@ class glados {
         state = false
     }
 
-    function shoot_bomb(monitor = Monitor, bomb_laun = Bomb_launcher, player = Player) {
+    function shoot_bomb(monitor = Monitor, player = Player) {
         if (player.hiding || !state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
         if (ammo == 0) {
             ammo = 3
-            bomb_laun.reload_seq(ammo, monitor)
+            Bomb_launcher.reload_seq(ammo, monitor)
         }
         // shooting logic
         EntFire("tank_*", "Deactivate", null, 0, null)
@@ -39,14 +43,14 @@ class glados {
         EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
         EntFire("tank_*", "Activate", null, 1.5, null)
 
-        bomb_laun.load_seq()
-        bomb_laun.shoot_seq()
-        bomb_laun.light_seq()
+        Bomb_launcher.load_seq()
+        Bomb_launcher.shoot_seq()
+        Bomb_launcher.light_seq()
 
         // monitor's visuals
         monitor.update(ammo)
     }
-    function shoot_rifle(monitor = Monitor, rifle = Rifle, player = Player) {
+    function shoot_rifle(monitor = Monitor, player = Player) {
         if (!player.hiding || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
         if (ammo == 0) {
             ammo = 5
@@ -60,7 +64,7 @@ class glados {
         EntFire("smg_turret", "Disable", null, 1.01, null)
         EntFire("game_n_script", "RunScriptCode", "GLaDOS.shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
 
-        rifle.body_seq()
+        Rifle.body_seq()
 
         // monitor's visuals
         monitor.update(ammo)
