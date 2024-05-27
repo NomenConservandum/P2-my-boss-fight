@@ -17,7 +17,8 @@ class monitor {
 Monitor <- monitor
 
 class weapon {
-    function reload_seq(ammo, monitor = Monitor) {
+    ammo = 0
+    function reload_seq(monitor = Monitor) {
         printl("reload sequence")
 
         monitor.update(ammo)

@@ -14,11 +14,11 @@ class player {
 Player <- player()
 
 class glados {
-    Bomb_launcher = bomb_launcher
-    Rifle = rifle
+    Bomb_launcher = bomb_launcher()
+    Rifle = rifle()
     health = 0 // GLaDOS' health
     state = false // is GLaDOS active?
-    ammo = 0
+    //ammo = 0
     function wakeup() {
         state = true
     }
@@ -28,13 +28,13 @@ class glados {
 
     function shoot_bomb(monitor = Monitor, player = Player) {
         if (player.hiding || !state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
-        if (ammo == 0) {
-            ammo = 3
-            Bomb_launcher.reload_seq(ammo, monitor)
+        if (Bomb_launcher.ammo == 0) {
+            Bomb_launcher.ammo = 3
+            Bomb_launcher.reload_seq(monitor)
         }
         // shooting logic
         EntFire("tank_*", "Deactivate", null, 0, null)
-        --ammo
+        --Bomb_launcher.ammo
         EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
         EntFire("tank_*", "Activate", null, 1.5, null)
 
@@ -43,16 +43,16 @@ class glados {
         Bomb_launcher.light_seq()
 
         // monitor's visuals
-        monitor.update(ammo)
+        monitor.update(Bomb_launcher.ammo)
     }
     function shoot_rifle(monitor = Monitor, player = Player) {
         if (!player.hiding || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
-        if (ammo == 0) {
-            ammo = 5
-            Rifle.reload_seq(ammo, monitor)
+        if (Rifle.ammo == 0) {
+            Rifle.ammo = 5
+            Rifle.reload_seq(monitor)
         }
         // shooting logic
-        --ammo
+        --Rifle.ammo
         EntFire("smg_turret", "FireBullet", player.target, 1, null)
         EntFire("smg_turret", "Disable", null, 1.01, null)
         EntFire("game_n_script", "RunScriptCode", "GLaDOS.shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
@@ -60,7 +60,7 @@ class glados {
         Rifle.body_seq()
 
         // monitor's visuals
-        monitor.update(ammo)
+        monitor.update(Rifle.ammo)
     }
 }
 
@@ -71,13 +71,11 @@ GLaDOS <- glados()
 //
 function istriggered() {
 	Player.hiding = true
-    GLaDOS.ammo = 0
     GLaDOS.shoot_rifle()
 }
 
 function is_not_triggered() {
     Player.hiding = false
-    GLaDOS.ammo = 0
 }
 
 function settarget(target_id, player = Player) {
