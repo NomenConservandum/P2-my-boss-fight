@@ -1,4 +1,4 @@
-printl("script is working\n") 
+printl("script is working\n")
 
 IncludeScript("bossfight/bossfight_visuals")
 
@@ -29,20 +29,15 @@ class glados {
     function shoot_bomb(monitor = Monitor, player = Player) {
         if (player.hiding || !state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
         if (Bomb_launcher.ammo == 0) {
-            Bomb_launcher.reload_seq(monitor, 3)
+            Bomb_launcher.reload_seq(3)
         }
-        // shooting logic
         EntFire("tank_*", "Deactivate", null, 0, null)
-        --Bomb_launcher.ammo
         EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
         EntFire("tank_*", "Activate", null, 1.5, null)
-
         Bomb_launcher.load_seq()
+        --Bomb_launcher.ammo
         Bomb_launcher.shoot_seq()
         Bomb_launcher.light_seq()
-
-        // monitor's visuals
-        monitor.update(Bomb_launcher.ammo, 0.5)
     }
     function shoot_rifle(monitor = Monitor, player = Player) {
         if (!player.hiding || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
@@ -92,7 +87,7 @@ function activate_the_villian() {
 }
 
 function glados_wakes_up() {
-    printl("GLaDOS is waking up!") 
+    printl("GLaDOS is waking up!")
     // can make an array of animation names where health is used as an index, as
     // lower the healthbar, the more angry and exhausted are the animations
     EntFire("tank_*", "Activate", null, 0, null)
@@ -120,8 +115,8 @@ function glados_is_attacked() {
     EntFire("spark_" + GLaDOS.health, "StartSpark", null, 0, null)
     EntFire("power_off_01", "PlaySound", null, 0.5, null) // to be replaced with a playsound command
 
-    EntFire("GLaDOS_model", "SetAnimation", "sp_sabotage_glados_dropped", 0, null) 
-    EntFire("GLaDOS_model", "SetDefaultAnimation", "fgbwheatleytransfer03", 0, null) 
+    EntFire("GLaDOS_model", "SetAnimation", "sp_sabotage_glados_dropped", 0, null)
+    EntFire("GLaDOS_model", "SetDefaultAnimation", "fgbwheatleytransfer03", 0, null)
     EntFire("tank_*", "Deactivate", null, 0, null)
     EntFire("GLaDOS_damage_beep", "PlaySound", null, 0, null) // to be replaced with a playsound command
 }

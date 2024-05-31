@@ -5,12 +5,14 @@ printl("Visual script is working\n")
 //
 
 class monitor {
-    function update(ammo, delay = 0) {
+    function update(ammo, delay = 0, mod = false) {
         printl("Monitor is updated")
-        EntFire("num2_*", "Disable", null, 0.00, null)
+        EntFire("num2_*", "Disable", null, delay + 0, null)
         EntFire("num2_" + ammo, "Enable", null, delay + 0.01, null)
-        EntFire("MC_brush_normal", "Color", "0 255 0", delay + 1, null)
-        EntFire("MC_brush_normal", "Color", "255 0 0", delay + 1.5, null)
+        if (mod) {
+            EntFire("MC_brush_normal", "Color", "0 255 0", delay + 1, null)
+            EntFire("MC_brush_normal", "Color", "255 0 0", delay + 1.5, null)
+        }
     }
 }
 
@@ -18,24 +20,23 @@ Monitor <- monitor
 
 class weapon {
     ammo = 0
-    function reload_seq(monitor = Monitor, amount = 3) {
+    function reload_seq(amount = 3) {
         printl("reload sequence")
         ammo = amount
-        monitor.update(ammo)
         EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
     }
 }
 
 class bomb_launcher extends weapon {
-    function load_seq() {
+    function load_seq(monitor = Monitor) {
         printl("load sequence")
-        
+        monitor.update(ammo, 0.6)
         EntFire("bombs_beep", "PlaySound", null, 0, null) // to be replaced with a playsound command
         EntFire("bombtrain", "TeleportToPathNode", "bombpath1", 0, null)
         EntFire("grenade_preview", "EnableDraw", null, 0.1, null)
         EntFire("bombtrain", "StartForward", null, 0.1, null)
         EntFire("tube_suction_bombs", "PlaySound", null, 0.6, null) // to be replaced with a playsound command
-        
+
     }
     function light_seq() {
         printl("muzzle light")
@@ -46,7 +47,8 @@ class bomb_launcher extends weapon {
         }
         EntFire("bombs_shooting_light", "TurnOff", null, 1.5, null)
     }
-    function shoot_seq() {
+    function shoot_seq(monitor = Monitor) {
+        monitor.update(ammo, 1)
         EntFire("grenade_preview", "DisableDraw", null, 1, null)
         EntFire("bomb_shoot_sound", "PlaySound", null, 1, null) // to be replaced with a playsound command
     }
@@ -72,8 +74,8 @@ class rifle extends weapon{
 function wakeup_visuals(health) {
     EntFire("GLaDOS_model", "SetAnimation", "glados_its_been_fun", 0, null)
     if (health % 2 == 1) {
-        EntFire("GLaDOS_model", "SetDefaultAnimation", "glados_idle_agitated_more", 0, null) 
+        EntFire("GLaDOS_model", "SetDefaultAnimation", "glados_idle_agitated_more", 0, null)
     } else {
-        EntFire("GLaDOS_model", "SetDefaultAnimation", "glados_idle_agitated", 0, null) 
+        EntFire("GLaDOS_model", "SetDefaultAnimation", "glados_idle_agitated", 0, null)
     }
 }
