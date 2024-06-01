@@ -29,6 +29,7 @@ class glados {
     function shoot_bomb(monitor = Monitor, player = Player) {
         if (player.hiding || !state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
         if (Bomb_launcher.ammo == 0) {
+            monitor.update(3)
             Bomb_launcher.reload_seq(3)
         }
         EntFire("tank_*", "Deactivate", null, 0, null)

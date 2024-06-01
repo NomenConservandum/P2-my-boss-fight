@@ -23,7 +23,7 @@ class weapon {
     function reload_seq(amount = 3) {
         printl("reload sequence")
         ammo = amount
-        EntFire("portalgun_powerup1", "PlaySound", null, 1, null) // to be replaced with a playsound command
+        SendToConsole("play \"weapons/portalgun_powerup1.wav\"")
     }
 }
 
