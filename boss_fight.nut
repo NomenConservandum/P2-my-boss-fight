@@ -42,6 +42,7 @@ class glados {
     function shoot_rifle(monitor = Monitor, player = Player) {
         if (!player.hiding || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
         if (Rifle.ammo == 0) {
+            monitor.update(5)
             Rifle.reload_seq(5)
         }
         // shooting logic
@@ -53,7 +54,7 @@ class glados {
         Rifle.body_seq()
 
         // monitor's visuals
-        monitor.update(Rifle.ammo, 0.5)
+        monitor.update(Rifle.ammo, 1)
     }
 }
 
