@@ -31,11 +31,11 @@ class bomb_launcher extends weapon {
     function load_seq(monitor = Monitor) {
         printl("load sequence")
         monitor.update(ammo, 0.6)
-        EntFire("bombs_beep", "PlaySound", null, 0, null) // to be replaced with a playsound command
+        EntFire("command", "Command", "play \"weapons/rocket/rocket_locking_beep1.wav\"", 0, null)
         EntFire("bombtrain", "TeleportToPathNode", "bombpath1", 0, null)
         EntFire("grenade_preview", "EnableDraw", null, 0.1, null)
         EntFire("bombtrain", "StartForward", null, 0.1, null)
-        EntFire("tube_suction_bombs", "PlaySound", null, 0.6, null) // to be replaced with a playsound command
+        EntFire("command", "Command", "play \"world/tube_suction_object_01.wav\"", 0.6, null)
 
     }
     function light_seq() {
@@ -50,7 +50,7 @@ class bomb_launcher extends weapon {
     function shoot_seq(monitor = Monitor) {
         monitor.update(ammo, 1)
         EntFire("grenade_preview", "DisableDraw", null, 1, null)
-        EntFire("bomb_shoot_sound", "PlaySound", null, 1, null) // to be replaced with a playsound command
+        EntFire("command", "Command", "play \"labs/chicken_tube.wav\"", 1, null)
     }
 }
 
@@ -61,7 +61,7 @@ class rifle extends weapon{
         EntFire("weapon_aim_sprite", "HideSprite", null, 0, null)
         EntFire("weapon_barell_door", "Open", null, 0.5, null)
         EntFire("weapon_wholebodymovementreload", "Close", null, 0.5, null)
-        EntFire("robot_pos_interact", "PlaySound", null, 1, null) // to be replaced with a playsound command
+        EntFire("command", "Command", "play \"world/robot_parts/robot_pos_interact.wav\"", 1, null)
         EntFire("shooting_light", "TurnOn", null, 1, null)
         EntFire("shooting_light", "TurnOff", null, 1.05, null)
     }

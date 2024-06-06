@@ -112,14 +112,14 @@ function glados_is_attacked() {
     // visuals
     // plays the animations and sounds (maybe some environmental changes: lighting changes, earthquakes, etc)
     EntFire("spin_disk_" + GLaDOS.health, "Stop", null, 0, null)
-    EntFire("spin_disk_1_exp_sound", "PlaySound", null, 0.1, null) // to be replaced with a playsound command
+    EntFire("command", "Command", "play \"props/explosions/explo_generic_med_02.wav\"", 0.1, null)
     EntFire("spark_" + GLaDOS.health, "StartSpark", null, 0, null)
-    EntFire("power_off_01", "PlaySound", null, 0.5, null) // to be replaced with a playsound command
+    EntFire("command", "Command", "play \"world/light_power_off_01.wav\"", 0.5, null)
 
     EntFire("GLaDOS_model", "SetAnimation", "sp_sabotage_glados_dropped", 0, null)
     EntFire("GLaDOS_model", "SetDefaultAnimation", "fgbwheatleytransfer03", 0, null)
     EntFire("tank_*", "Deactivate", null, 0, null)
-    EntFire("GLaDOS_damage_beep", "PlaySound", null, 0, null) // to be replaced with a playsound command
+    EntFire("command", "Command", "play \"world/robot_parts/robot_neg_interact.wav\"", 0, null)
 }
 
 
