@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "9672"
-	"mapversion" "2308"
+	"mapversion" "2309"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -188,7 +188,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "2308"
+	"mapversion" "2309"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -9452,7 +9452,7 @@ entity
 	"id" "127695"
 	"classname" "logic_script"
 	"targetname" "game_n_script"
-	"vscripts" "bossfight/boss_fight.nut bossfight/bossfight_visuals.nut"
+	"vscripts" "bossfight/boss_fight.nut bossfight/bossfight_visuals.nut bossfight/bossfight_logic.nut"
 	"origin" "448 128 8"
 	editor
 	{

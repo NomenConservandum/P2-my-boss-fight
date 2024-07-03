@@ -1,71 +1,22 @@
 printl("script is working\n")
 
-IncludeScript("bossfight/bossfight_visuals")
-
+    
 //
 // Global Variables
 //
 
-class player {
-    target = "player_target"
-    hiding = false // is player hiding?
-}
+IncludeScript("bossfight/bossfight_visuals")
 
-Player <- player()
+Monitor <- monitor
 
-class glados {
-    Bomb_launcher = bomb_launcher()
-    Rifle = rifle()
-    health = 0 // GLaDOS' health
-    state = false // is GLaDOS active?
-
-    function wakeup() {
-        state = true
-    }
-    function sleep() {
-        state = false
-    }
-
-    function shoot_bomb(monitor = Monitor, player = Player) {
-        if (player.hiding || !state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
-        if (Bomb_launcher.ammo == 0) {
-            Bomb_launcher.reload_seq(3)
-        }
-        EntFire("tank_*", "Deactivate", null, 0, null)
-        EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
-        EntFire("tank_*", "Activate", null, 1.5, null)
-        Bomb_launcher.load_seq()
-        --Bomb_launcher.ammo
-        Bomb_launcher.shoot_seq()
-        Bomb_launcher.light_seq()
-    }
-    function shoot_rifle(monitor = Monitor, player = Player) {
-        if (!player.hiding || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
-        if (Rifle.ammo == 0) {
-            monitor.update(5)
-            Rifle.reload_seq(5)
-        }
-        // shooting logic
-        --Rifle.ammo
-        EntFire("smg_turret", "FireBullet", player.target, 1, null)
-        EntFire("smg_turret", "Disable", null, 1.01, null)
-        EntFire("game_n_script", "RunScriptCode", "GLaDOS.shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
-
-        Rifle.body_seq()
-
-        // monitor's visuals
-        monitor.update(Rifle.ammo, 1)
-    }
-}
-
-GLaDOS <- glados()
+IncludeScript("bossfight/bossfight_logic") // imports Player and GLaDOS class instances
 
 //
 // Triggers' Logic
 //
 function istriggered() {
 	Player.hiding = true
-    GLaDOS.shoot_rifle()
+    GLaDOS.shoot_rifle(Player)
 }
 
 function is_not_triggered() {
@@ -88,7 +39,7 @@ function activate_the_villian() {
 }
 
 function glados_wakes_up() {
-    printl("GLaDOS is waking up!")
+    // printl("GLaDOS is waking up!")
     // can make an array of animation names where health is used as an index, as
     // lower the healthbar, the more angry and exhausted are the animations
     EntFire("tank_*", "Activate", null, 0, null)
