@@ -5,9 +5,7 @@ printl("script is working\n")
 // Global Variables
 //
 
-IncludeScript("bossfight/bossfight_visuals")
-
-Monitor <- monitor
+IncludeScript("bossfight/bossfight_visuals") // imports Monitor class instance
 
 IncludeScript("bossfight/bossfight_logic") // imports Player and GLaDOS class instances
 
