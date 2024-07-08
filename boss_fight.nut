@@ -33,7 +33,7 @@ function glados_is_attacked() {
     GLaDOS.sleep() //state = false // GLaDOS' state is now "inactive"
     GLaDOS.takedamage() // healthbar is lowered
     printl("GLaDOS' health: " + GLaDOS.health())
-    if (GLaDOS.health <= 0) { // checks the healthbar
+    if (GLaDOS.health() <= 0) { // checks the healthbar
         // victory sequence
     } else {
         EntFire("screen_diagnostic_slideshow", "Trigger", null, 0, null)  // diagnostics animation

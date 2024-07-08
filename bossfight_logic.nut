@@ -15,7 +15,6 @@ class weapon {
 
 class bomb_launcher extends weapon {
     visual_agent = bomb_launcher_visuals()
-    
     function shoot() {
         if (ammo == 0) {
             this.reload(3)
@@ -35,7 +34,7 @@ class bomb_launcher extends weapon {
 class rifle extends weapon {
     visual_agent = rifle_visuals()
     
-    function shoot(target) {
+    function shoot(target = ' ') {
         if (ammo == 0) {
             this.reload(5)
         }
@@ -55,16 +54,16 @@ class rifle extends weapon {
 
 class creature {
     health = 0
-    state = false // is player hiding? Is GLaDOS active?
+    bstate = false // is player hiding? Is GLaDOS active?
     
     function wakeup() {
-        state = true
+        bstate = true
     }
     function sleep() {
-        state = false
+        bstate = false
     }
     function state() {
-        return state
+        return bstate
     }
     
     function health() {
@@ -96,11 +95,11 @@ class glados extends creature {
     Rifle = rifle()
     
     function shoot_bomb(player = Player) {
-        if (player.state() || !state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
+        if (player.state() || !this.state()) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
         Bomb_launcher.shoot()
     }
     function shoot_rifle(player = Player) {
-        if (!player.state() || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
+        if (!player.state() || !this.state()) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
         Rifle.shoot(player.target)
     }
 }
@@ -108,7 +107,7 @@ class glados extends creature {
 GLaDOS <- glados()
 
 //
-// Triggers' Logic
+// TRIGGERS
 //
 
 function istriggered() {
