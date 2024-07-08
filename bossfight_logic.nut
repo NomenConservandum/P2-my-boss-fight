@@ -25,6 +25,10 @@ class bomb_launcher extends weapon {
         EntFire("tank_*", "Deactivate", null, 1, null)
         EntFire("bomb_launcher_eem", "ForceSpawn", null, 1, null)
         EntFire("tank_*", "Activate", null, 2, null)
+        // visuals
+        visual_agent.load_seq(ammo)
+        visual_agent.shoot_seq(ammo)
+        visual_agent.light_seq()
     }
 }
 
@@ -40,6 +44,8 @@ class rifle extends weapon {
         EntFire("smg_turret", "FireBullet", target, 1, null)
         EntFire("smg_turret", "Disable", null, 1.01, null)
         EntFire("game_n_script", "RunScriptCode", "GLaDOS.shoot_rifle()", 1.5, null) // why use a timer when you can use self-bootstrap xd
+        // visuals
+        visual_agent.shoot_seq(ammo)
     }
 }
 
@@ -91,18 +97,11 @@ class glados extends creature {
     
     function shoot_bomb(player = Player) {
         if (player.state() || !state) return // if it's not the bombs mode or GLaDOS is inactive, we don't use it
-        Bomb_launcher.visual_agent.load_seq(Bomb_launcher.ammo)
-        
         Bomb_launcher.shoot()
-        
-        Bomb_launcher.visual_agent.shoot_seq(Bomb_launcher.ammo)
-        Bomb_launcher.visual_agent.light_seq()
     }
     function shoot_rifle(player = Player) {
         if (!player.state() || !state) return // if it's not the rifle mode or GLaDOS is inactive, we don't use it
         Rifle.shoot(player.target)
-        
-        Rifle.visual_agent.shoot_seq(Rifle.ammo)
     }
 }
 
