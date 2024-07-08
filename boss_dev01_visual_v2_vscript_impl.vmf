@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "9672"
-	"mapversion" "2311"
+	"mapversion" "2313"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -194,7 +194,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "2311"
+	"mapversion" "2313"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -35686,7 +35686,7 @@ entity
 		"OnBreak" "glass_window_break_particleStart0-1"
 		"OnBreak" "glass_window_break_particleStop0.05-1"
 		"OnBreak" "white_panel01_doorbaseOpen0-1"
-		"OnBreak" "game_n_scriptRunScriptCodesettarget(1)0-1"
+		"OnBreak" "game_n_scriptRunScriptCodePlayer.changetarget(1)0-1"
 	}
 	solid
 	{
@@ -36658,7 +36658,7 @@ entity
 		"OnTrigger" "trap_arm_close_soundPlaySound1.75-1"
 		"OnTrigger" "trap_train_armSetParenttrap_movelinear23.5-1"
 		"OnTrigger" "trap_movelinear2Open3.5-1"
-		"OnTrigger" "game_n_scriptRunScriptCodesettarget(0)0-1"
+		"OnTrigger" "game_n_scriptRunScriptCodePlayer.changetarget(0)0-1"
 	}
 	solid
 	{
